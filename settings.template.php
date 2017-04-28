@@ -7,16 +7,16 @@ define("DEBUG", false);
 // Database connection settings
 // See http://medoo.in/api/new for info
 define("DB_TYPE", "mysql");
-define("DB_NAME", "app");
+define("DB_NAME", "taskfloor");
 define("DB_SERVER", "localhost");
-define("DB_USER", "app");
+define("DB_USER", "");
 define("DB_PASS", "");
 define("DB_CHARSET", "utf8");
 
-define("SITE_TITLE", "Web App Template");
+define("SITE_TITLE", "TaskFloor");
 
 // Used to identify the system in OTP and other places
-define("SYSTEM_NAME", "Web App Template");
+define("SYSTEM_NAME", "TaskFloor");
 
 // Which pages to show the app icon on:
 // index, app, both, none
@@ -28,7 +28,7 @@ define("ICON_POSITION", "menu");
 define("MENU_BAR_STYLE", "fixed");
 
 // URL of the Business Portal API endpoint
-define("PORTAL_API", "http://localhost/api.php");
+define("PORTAL_API", "http://localhost:8000/api.php");
 // Business Portal API Key
 define("PORTAL_KEY", "123");
 
@@ -56,6 +56,6 @@ define("MIN_PASSWORD_LENGTH", 8);
 //  /!\       Warning: Changing these values may       /!\  //
 //  /!\  violate the terms of your license agreement!  /!\  //
 //////////////////////////////////////////////////////////////
-define("LICENSE_TEXT", "<b>Free Software: MIT License</b>");
+define("LICENSE_TEXT", "<b>Unlicensed Demo</b>");
 define("COPYRIGHT_NAME", "Netsyms Technologies");
 //////////////////////////////////////////////////////////////
