@@ -99,6 +99,34 @@ function user_exists($username) {
 }
 
 /**
+ * Check if a UID exists.
+ * @param String $uid
+ */
+function uid_exists($uid) {
+    $client = new GuzzleHttp\Client();
+
+    $response = $client
+            ->request('POST', PORTAL_API, [
+        'form_params' => [
+            'key' => PORTAL_KEY,
+            'action' => "userexists",
+            'uid' => $uid
+        ]
+    ]);
+
+    if ($response->getStatusCode() > 299) {
+        sendError("Login server error: " . $response->getBody());
+    }
+
+    $resp = json_decode($response->getBody(), TRUE);
+    if ($resp['status'] == "OK" && $resp['exists'] === true) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
  * Get the account status: NORMAL, TERMINATED, LOCKED_OR_DISABLED,
  * CHANGE_PASSWORD, or ALERT_ON_ACCESS
  * @param string $username
@@ -190,6 +218,32 @@ function simLogin($username, $password) {
         return true;
     } else {
         return $resp['msg'];
+    }
+}
+
+function verifyReCaptcha($code) {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', "https://www.google.com/recaptcha/api/siteverify", [
+            'form_params' => [
+                'secret' => RECAPTCHA_SECRET_KEY,
+                'response' => $code
+            ]
+        ]);
+
+        if ($response->getStatusCode() != 200) {
+            return false;
+        }
+
+        $resp = json_decode($response->getBody(), TRUE);
+        if ($resp['success'] === true) {
+            return true;
+        }
+        return false;
+    } catch (Exception $e) {
+        return false;
     }
 }
 

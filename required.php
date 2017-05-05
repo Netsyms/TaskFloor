@@ -14,7 +14,9 @@ $session_length = 60 * 60; // 1 hour
 session_set_cookie_params($session_length, "/", null, false, true);
 
 session_start(); // stick some cookies in it
-//
+// renew session cookie
+setcookie(session_name(), session_id(), time() + $session_length);
+
 // Composer
 require __DIR__ . '/vendor/autoload.php';
 
@@ -78,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  * @return boolean True if it's empty or whatever.
  */
 function is_empty($str) {
-    return (is_null($str) || !isset($str) || $str == '');
+    return (!isset($str) || is_null($str) || $str == '');
 }
 
 /**
@@ -186,4 +188,11 @@ function redirectIfNotLoggedIn() {
         header('Location: ' . URL . '/index.php');
         die();
     }
+}
+
+/**
+ * http://stackoverflow.com/a/24401462/2534036
+ */
+function checkIsAValidDate($myDateString) {
+    return (bool) strtotime($myDateString);
 }

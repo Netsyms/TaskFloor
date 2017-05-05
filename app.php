@@ -24,13 +24,21 @@ if (!is_empty($_GET['page'])) {
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" contgreent="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title><?php echo SITE_TITLE; ?></title>
 
         <link href="static/css/bootstrap.min.css" rel="stylesheet">
         <link href="static/css/font-awesome.min.css" rel="stylesheet">
         <link href="static/css/app.css" rel="stylesheet">
+        <?php
+        // custom page styles
+        if (isset(PAGES[$pageid]['styles'])) {
+            foreach (PAGES[$pageid]['styles'] as $style) {
+                echo "<link href=\"$style\" rel=\"stylesheet\">\n";
+            }
+        }
+        ?>
     </head>
     <body>
         <div class="container">
@@ -44,7 +52,7 @@ if (!is_empty($_GET['page'])) {
                             <?php
                         }
                     }
-                    ?>
+                    ?> 
                 </div>
             </div>
             <nav class="navbar navbar-inverse navbar-<?php echo MENU_BAR_STYLE; ?>-top">
@@ -66,7 +74,7 @@ if (!is_empty($_GET['page'])) {
                                 <?php
                             }
                         }
-                        ?>
+                        ?> 
                         <a class="navbar-brand" href="app.php">
                             <?php
                             echo SITE_TITLE;
@@ -74,7 +82,7 @@ if (!is_empty($_GET['page'])) {
                             //lang("home");
                             //echo " <i class=\"fa fa-caret-right\"></i> ";
                             //lang(PAGES[$pageid]['title']);
-                            ?>
+                            ?> 
                         </a>
                     </div>
 
@@ -82,30 +90,29 @@ if (!is_empty($_GET['page'])) {
                         <ul class="nav navbar-nav">
                             <?php
                             foreach (PAGES as $id => $pg) {
-                                if ($pg['navbar'] === TRUE) {
+                                if (isset($pg['navbar']) && $pg['navbar'] === TRUE) {
                                     if ($pageid == $id) {
-                                        ?>
+                                        ?> 
                                         <li class="active">
                                             <?php
                                         } else {
-                                            ?>
-                                        <li>
-                                        <?php } ?>
-                                        <a href="app.php?page=<?php echo $id; ?>">
+                                            ?> 
+                                        <li><?php
+                                        }
+                                        ?><a href="app.php?page=<?php echo $id; ?>">
                                             <?php
                                             if (isset($pg['icon'])) {
-                                                ?>
-                                                <i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i> 
-                                            <?php } ?>
-                                            <?php lang($pg['title']) ?>
-                                        </a>
+                                                ?><i class="fa fa-<?php echo $pg['icon']; ?> fa-fw"></i> <?php
+                                            }
+                                            lang($pg['title']);
+                                            ?></a>
                                     </li>
                                     <?php
                                 }
                             }
-                            ?>
-                        </ul>
+                            ?></ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li><span class="navbar-text navbar-link"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></span></li>
                             <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
                         </ul>
                     </div>
@@ -119,8 +126,8 @@ if (!is_empty($_GET['page'])) {
             }
             ?>
             <?php
-// Alert messages
-            if (!is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
+            // Alert messages
+            if (isset($_GET['msg']) && !is_empty($_GET['msg']) && array_key_exists($_GET['msg'], MESSAGES)) {
                 // optional string generation argument
                 if (is_empty($_GET['arg'])) {
                     $alertmsg = lang(MESSAGES[$_GET['msg']]['string'], false);
@@ -168,5 +175,13 @@ END;
         <script src="static/js/jquery-3.2.1.min.js"></script>
         <script src="static/js/bootstrap.min.js"></script>
         <script src="static/js/app.js"></script>
+        <?php
+        // custom scripts
+        if (isset(PAGES[$pageid]['scripts'])) {
+            foreach (PAGES[$pageid]['scripts'] as $script) {
+                echo "<script src=\"$script\"></script>\n";
+            }
+        }
+        ?>
     </body>
 </html>
