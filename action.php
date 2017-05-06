@@ -72,6 +72,20 @@ switch ($VARS['action']) {
         }
         $database->update('assigned_tasks', ['#endtime' => 'NOW()', 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
+    case "pause":
+        header('HTTP/1.0 204 No Content');
+        if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
+            die('You are not assigned to this task!');
+        }
+        $database->update('assigned_tasks', ['statusid' => 3], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        break;
+    case "problem":
+        header('HTTP/1.0 204 No Content');
+        if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
+            die('You are not assigned to this task!');
+        }
+        $database->update('assigned_tasks', ['statusid' => 4], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        break;
     case "edittask":
         if (is_empty($VARS['tasktitle'])) {
             header('HTTP/1.0 204 No Content');
@@ -116,7 +130,7 @@ switch ($VARS['action']) {
         if (is_empty($VARS['taskid'])) {
             die('Missing taskid.');
         }
-        
+
         $managed_uids = getManagedUIDs($_SESSION['uid']);
         // There needs to be at least one entry otherwise the SQL query craps itself
         if (count($managed_uids) < 1) {
@@ -139,7 +153,7 @@ switch ($VARS['action']) {
             header("Location: app.php?page=taskman&msg=task_delete_not_allowed");
             die(lang("task delete not allowed", false));
         }
-        
+
         if ($VARS['assigned']) {
             $database->delete('assigned_tasks', ['taskid' => $VARS['taskid']]);
         } else {

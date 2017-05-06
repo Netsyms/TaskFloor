@@ -46,6 +46,8 @@ define("STRINGS", [
     "actions" => "Actions",
     "start" => "Start",
     "finish" => "Finish",
+    "pause" => "Pause",
+    "resume" => "Continue",
     "no description" => "No description.",
     "no assigned date" => "No assigned date",
     "no due date" => "No due date",
