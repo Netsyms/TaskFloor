@@ -1,4 +1,7 @@
-tinymce.init({selector: 'textarea'});
+tinymce.init({
+    selector: 'textarea',
+    plugins: 'paste lists'
+});
 
 function clearpretty() {
     setTimeout(function () {
