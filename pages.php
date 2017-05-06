@@ -27,7 +27,14 @@ define("PAGES", [
     "messages" => [
         "title" => "messages",
         "navbar" => true,
-        "icon" => "comments"
+        "icon" => "comments",
+        "styles" => [
+            "static/css/easy-autocomplete.min.css"
+        ],
+        "scripts" => [
+            "static/js/jquery.easy-autocomplete.min.js",
+            "static/js/messages.js"
+        ]
     ],
     "edittask" => [
         "title" => "edit task",
