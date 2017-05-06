@@ -71,5 +71,7 @@ define("STRINGS", [
     "user not managed" => "You are not a manager of the selected user, and cannot assign a task to them.",
     "task edit not allowed" => "You are not allowed to edit that task.",
     "task delete not allowed" => "You are not allowed to delete that task.",
-    "task deleted" => "Task deleted."
+    "task deleted" => "Task deleted.",
+    "finished on" => "Finished on: {date}",
+    "started on" => "Started on: {date}",
 ]);

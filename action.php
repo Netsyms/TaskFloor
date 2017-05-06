@@ -59,11 +59,18 @@ switch ($VARS['action']) {
         }
         break;
     case "start":
-        header('HTTP/1.0 204 No Content');
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
             die('You are not assigned to this task!');
         }
+        header('HTTP/1.0 204 No Content');
         $database->update('assigned_tasks', ['#starttime' => 'NOW()', 'statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        break;
+    case "resume":
+        if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid'], 'starttime[!]' => null]])) {
+            die('Invalid operation.');
+        }
+        header('HTTP/1.0 204 No Content');
+        $database->update('assigned_tasks', ['statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "finish":
         header('HTTP/1.0 204 No Content');
@@ -73,17 +80,17 @@ switch ($VARS['action']) {
         $database->update('assigned_tasks', ['#endtime' => 'NOW()', 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "pause":
-        header('HTTP/1.0 204 No Content');
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
             die('You are not assigned to this task!');
         }
+        header('HTTP/1.0 204 No Content');
         $database->update('assigned_tasks', ['statusid' => 3], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "problem":
-        header('HTTP/1.0 204 No Content');
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
             die('You are not assigned to this task!');
         }
+        header('HTTP/1.0 204 No Content');
         $database->update('assigned_tasks', ['statusid' => 4], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "edittask":

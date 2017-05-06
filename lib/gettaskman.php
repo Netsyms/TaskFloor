@@ -24,7 +24,9 @@ $tasks = $database->select('tasks', [
     'taskassignedon (assigned)',
     'taskdueby (due)',
     'userid',
-    'statusid'
+    'statusid',
+    'starttime',
+    'endtime'
         ], [
     "AND" =>
     [
@@ -92,9 +94,25 @@ if (count($tasks) > 0) {
             <div class='panel-footer'>
                 <div class='row'>
                     <div class='col-xs-12 col-sm-8 col-md-8'>
-                        <i class='fa fa-clock-o'></i> <?php lang2("assigned on", ["date" => ($task['assigned'] > 0 ? date("F j, Y, g:i a", strtotime($task['assigned'])) : lang("no assigned date", false))]) ?> 
+                        <i class='fa fa-hourglass-start fa-fw'></i> <?php lang2("assigned on", ["date" => ($task['assigned'] > 0 ? date("F j, Y, g:i a", strtotime($task['assigned'])) : lang("no assigned date", false))]) ?> 
                         <br />
-                        <i class='fa fa-clock-o'></i> <?php lang2("due by", ["date" => ($task['due'] > 0 ? date("F j, Y, g:i a", strtotime($task['due'])) : lang("no due date", false))]) ?> 
+                        <i class='fa fa-hourglass-end fa-fw'></i> <?php lang2("due by", ["date" => ($task['due'] > 0 ? date("F j, Y, g:i a", strtotime($task['due'])) : lang("no due date", false))]) ?> 
+                        <?php
+                        if ($task['statusid'] > 0) {
+                            ?>
+                            <br />
+                            <i class='fa fa-play fa-fw'></i> <?php lang2("started on", ["date" => date("F j, Y, g:i a", strtotime($task['starttime']))]) ?> 
+                            <?php
+                        }
+                        ?>
+                        <?php
+                        if ($task['statusid'] == 2) {
+                            ?>
+                            <br />
+                            <i class='fa fa-stop fa-fw'></i> <?php lang2("finished on", ["date" => date("F j, Y, g:i a", strtotime($task['endtime']))]) ?> 
+                            <?php
+                        }
+                        ?>
                     </div>
                     <div class='col-xs-12 col-sm-4 col-md-4'>
                         <div class='pull-right'>
