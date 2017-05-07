@@ -4,7 +4,6 @@ require_once __DIR__ . "/../required.php";
 redirectifnotloggedin();
 
 require_once __DIR__ . "/userinfo.php";
-require_once __DIR__ . "/manage.php";
 
 $managed_uids = getManagedUIDs($_SESSION['uid']);
 

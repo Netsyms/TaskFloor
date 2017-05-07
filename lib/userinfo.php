@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Get user info for the given username.
+ * @param int $u username
+ * @return [string] Array of [uid, username, name]
+ */
 function getUserByUsername($u) {
     $client = new GuzzleHttp\Client();
 
@@ -25,6 +29,11 @@ function getUserByUsername($u) {
     }
 }
 
+/**
+ * Get user info for the given UID.
+ * @param int $u user ID
+ * @return [string] Array of [uid, username, name]
+ */
 function getUserByID($u) {
     $client = new GuzzleHttp\Client();
 
@@ -80,5 +89,34 @@ function isManagerOf($m, $e) {
     } else {
         // this shouldn't happen, but in case it does just fake it.
         return ["name" => $u, "username" => $u, "uid" => $u];
+    }
+}
+
+/**
+ * Get an array of UIDs the given UID is a manager of.
+ * @param int $manageruid The UID of the manager to find employees for.
+ * @return [int]
+ */
+function getManagedUIDs($manageruid) {
+    $client = new GuzzleHttp\Client();
+
+    $response = $client
+            ->request('POST', PORTAL_API, [
+        'form_params' => [
+            'key' => PORTAL_KEY,
+            'action' => "getmanaged",
+            'uid' => $manageruid
+        ]
+    ]);
+
+    if ($response->getStatusCode() > 299) {
+        sendError("Login server error: " . $response->getBody());
+    }
+
+    $resp = json_decode($response->getBody(), TRUE);
+    if ($resp['status'] == "OK") {
+        return $resp['employees'];
+    } else {
+        return [];
     }
 }

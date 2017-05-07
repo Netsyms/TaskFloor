@@ -45,7 +45,7 @@ function checkLoginServer() {
  * @param string $password
  * @return boolean True if OK, else false
  */
-function authenticate_user($username, $password) {
+function authenticate_user($username, $password, &$errmsg) {
     $client = new GuzzleHttp\Client();
 
     $response = $client
@@ -66,6 +66,7 @@ function authenticate_user($username, $password) {
     if ($resp['status'] == "OK") {
         return true;
     } else {
+        $errmsg = $resp['msg'];
         return false;
     }
 }
@@ -188,7 +189,6 @@ function doLoginUser($username) {
         $_SESSION['uid'] = $userinfo['uid'];
         $_SESSION['email'] = $userinfo['email'];
         $_SESSION['realname'] = $userinfo['name'];
-        $_SESSION['password'] = $password;
         $_SESSION['loggedin'] = true;
         return true;
     } else {
