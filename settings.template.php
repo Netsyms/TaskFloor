@@ -28,7 +28,9 @@ define("ICON_POSITION", "menu");
 define("MENU_BAR_STYLE", "fixed");
 
 // URL of the Business Portal API endpoint
-define("PORTAL_API", "http://localhost:8000/api.php");
+define("PORTAL_API", "http://localhost/portal/api.php");
+// URL of the Portal home page
+define("PORTAL_URL", "http://localhost/portal/home.php");
 // Business Portal API Key
 define("PORTAL_KEY", "123");
 
@@ -36,7 +38,7 @@ define("PORTAL_KEY", "123");
 define("TIMEZONE", "America/Denver");
 
 // Base URL for site links.
-define('URL', 'http://localhost:8000/');
+define('URL', 'http://localhost/taskfloor/');
 
 // Use reCAPTCHA on login screen
 // https://www.google.com/recaptcha/
