@@ -50,7 +50,7 @@ if (count($tasks) > 0) {
                     <div class='col-xs-12 col-sm-6 col-md-6 col-lg-5'>
                         <i class='fa fa-hourglass-start fa-fw'></i> <?php lang2("assigned on", ["date" => date("F j, Y, g:i a", strtotime($task['taskassignedon']))]) ?>
                         <br />
-                        <i class='fa fa-hourglass-end fa-fw'></i> <?php lang2("due by", ["date" => ($task['taskdueby'] > 0 ? date("F j, Y, g:i a", strtotime($task['taskdueby'])) : "No due date")]) ?>
+                        <i class='fa fa-hourglass-end fa-fw'></i> <?php lang2("due by", ["date" => ($task['taskdueby'] > 0 ? date("F j, Y, g:i a", strtotime($task['taskdueby'])) : lang("no due date", false))]) ?>
                         <?php
                         if ($task['statusid'] > 0) {
                             ?>
