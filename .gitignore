@@ -2,3 +2,4 @@ vendor
 settings.php
 nbproject/private
 database.mwb.bak
+*.sync-conflict*
