@@ -78,10 +78,6 @@ if (!is_empty($_GET['page'])) {
                         <a class="navbar-brand" href="app.php">
                             <?php
                             echo SITE_TITLE;
-                            // add breadcrumb-y thing
-                            //lang("home");
-                            //echo " <i class=\"fa fa-caret-right\"></i> ";
-                            //lang(PAGES[$pageid]['title']);
                             ?> 
                         </a>
                     </div>
