@@ -53,6 +53,6 @@ define('LANGUAGE', "en_us");
 //  /!\       Warning: Changing these values may       /!\  //
 //  /!\  violate the terms of your license agreement!  /!\  //
 //////////////////////////////////////////////////////////////
-define("LICENSE_TEXT", "<b>Unlicensed Demo</b>");
+define("LICENSE_TEXT", "<b>Personal, Non-commercial Use Only</b>");
 define("COPYRIGHT_NAME", "Netsyms Technologies");
 //////////////////////////////////////////////////////////////

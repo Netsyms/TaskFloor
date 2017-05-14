@@ -1,9 +1,35 @@
-Copyright (C) 2017 Netsyms Technologies.
+Copyright (C) 2017 Netsyms Technologies.  All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+**Definitions:**  
+* "the code", "this code", or "code" refers to the application (or any portion 
+thereof) this license is included with, excluding third-party libraries.  
+* "any form" means source code, binaries, or any other representation of the code.  
+* "explicit written permission" refers to a written, signed, non-transferable 
+statement from Netsyms Technologies granting you additional rights to the code.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+**You are allowed to:**  
+* use this code for personal and non-commercial purposes.  
+* modify this code for personal and non-commercial purposes.  
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL NETSYMS TECHNOLOGIES BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**You are NOT allowed to:**  
+* redistribute this code in any form.  
+* sell the code in any form.  
+* use the code for any projects you redistribute or sell, unless you have 
+explicit written permission.  
+* use the code for any projects that are not both personal and non-commercial.  
+* use the code for commercial, business, or non-profit purposes without 
+explicit written permission.
 
-Except as contained in this notice, the name and other identifying marks of Netsyms Technologies shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization from Netsyms Technologies.
+**You must:**  
+* retain any and all copyright notices in the code.  
+* retain any and all license notices in the code.  
+* ask for clarification from Netsyms Technologies if any portion of this license 
+is unclear or ambiguous.
+
+**Disclaimer:**  
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR 
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
