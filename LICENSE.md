@@ -18,7 +18,8 @@ statement from Netsyms Technologies granting you additional rights to the code.
 explicit written permission.  
 * use the code for any projects that are not both personal and non-commercial.  
 * use the code for commercial, business, or non-profit purposes without 
-explicit written permission.
+explicit written permission.  
+* do anything else not permitted in this license.
 
 **You must:**  
 * retain any and all copyright notices in the code.  
