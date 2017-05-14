@@ -1,18 +1,18 @@
 Copyright (C) 2017 Netsyms Technologies.  All rights reserved.
 
 **Definitions:**  
-* "the code", "this code", or "code" refers to the application (or any portion 
+* "the code", "the software", or "code" refers to the application (or any portion 
 thereof) this license is included with, excluding third-party libraries.  
 * "any form" means source code, binaries, or any other representation of the code.  
 * "explicit written permission" refers to a written, signed, non-transferable 
 statement from Netsyms Technologies granting you additional rights to the code.
 
 **You are allowed to:**  
-* use this code for personal and non-commercial purposes.  
-* modify this code for personal and non-commercial purposes.  
+* use the code for personal and non-commercial purposes.  
+* modify the code for personal and non-commercial purposes.  
 
 **You are NOT allowed to:**  
-* redistribute this code in any form.  
+* redistribute the code in any form.  
 * sell the code in any form.  
 * use the code for any projects you redistribute or sell, unless you have 
 explicit written permission.  
