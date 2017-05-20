@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../required.php';
+
+redirectifnotloggedin();
+?>
 <h2 class="page-header"><?php lang("my tasks") ?></h2>
 <div id="tasksdispdiv" style="<?php if ($pageid != "mytasks") {
         echo "max-height: 600px; overflow-y: auto; padding: 5px;";

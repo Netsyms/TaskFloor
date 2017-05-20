@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../required.php';
+
+redirectifnotloggedin();
+?>
 <h2 class="page-header">
     <?php lang("messages") ?>
 </h2>

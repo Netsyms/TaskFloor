@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../required.php';
+
+redirectifnotloggedin();
+?>
 <h1 class="page-header"><?php lang("edit task") ?></h1>
 <?php
 include_once __DIR__ . "/../lib/userinfo.php";
@@ -5,7 +10,7 @@ include_once __DIR__ . "/../lib/manage.php";
 
 if (!is_empty($VARS['taskid'])) {
     $taskid = $VARS['taskid'];
-    
+
     $managed_uids = getManagedUIDs($_SESSION['uid']);
     // There needs to be at least one entry otherwise the SQL query craps itself
     if (count($managed_uids) < 1) {
@@ -23,7 +28,7 @@ if (!is_empty($VARS['taskid'])) {
             ],
             "tasks.taskid" => $taskid
     ]]);
-    
+
     if (!$allowed) {
         header("Location: app.php?page=edittask&msg=task_edit_not_allowed");
         die(lang("task edit not allowed", false));
