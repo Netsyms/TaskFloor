@@ -39,7 +39,7 @@ switch ($VARS['action']) {
         if (is_empty($msg)) {
             die();
         }
-        $database->insert('messages', ['messagetext' => $msg, '#messagedate' => 'NOW()', 'from' => $_SESSION['uid'], 'to' => $to]);
+        $database->insert('messages', ['messagetext' => $msg, 'messagedate' => date("Y-m-d H:i:s"), 'from' => $_SESSION['uid'], 'to' => $to]);
         break;
     case "delmsg":
         header('HTTP/1.0 204 No Content');
@@ -62,7 +62,7 @@ switch ($VARS['action']) {
             die('You are not assigned to this task!');
         }
         header('HTTP/1.0 204 No Content');
-        $database->update('assigned_tasks', ['#starttime' => 'NOW()', 'statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        $database->update('assigned_tasks', ['starttime' => date("Y-m-d H:i:s"), 'statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "resume":
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid'], 'starttime[!]' => null]])) {
@@ -76,7 +76,7 @@ switch ($VARS['action']) {
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
             die('You are not assigned to this task!');
         }
-        $database->update('assigned_tasks', ['#endtime' => 'NOW()', 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        $database->update('assigned_tasks', ['endtime' => date("Y-m-d H:i:s"), 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "pause":
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {

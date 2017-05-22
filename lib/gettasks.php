@@ -42,7 +42,7 @@ if (count($tasks) > 0) {
                     ?>
                 </h3>
             </div>
-            <div class='panel-body'>
+            <div class='panel-body task-description'>
                 <?php echo $task['taskdesc'] ?>
             </div>
             <div class='panel-footer'>

@@ -13,3 +13,12 @@
     margin-top: 10em;
     text-align: center;
 }
+
+.message-content {
+    overflow-wrap: break-word;
+}
+
+.task-description {
+    /* Using !important in case a "smart" guy messes with inline CSS, to make his life harder */
+    overflow-wrap: break-word !important;
+}

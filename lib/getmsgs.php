@@ -46,7 +46,7 @@ if (count($messages) > 0) {
         }
         ?>
         <div class="panel panel-default">
-            <div class="panel-body">
+            <div class="panel-body message-content">
                 <?php echo strip_tags($msg['text']); ?>
             </div>
             <div class="panel-footer">
