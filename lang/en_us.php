@@ -20,6 +20,7 @@ define("STRINGS", [
     "settings" => "Settings",
     "options" => "Options",
     "404 error" => "404 Error",
+    "no permission" => "You do not have permission to access this system.",
     "page not found" => "Page not found.",
     "invalid parameters" => "Invalid request parameters.",
     "login server error" => "The login server returned an error: {arg}",

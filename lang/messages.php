@@ -13,6 +13,10 @@ define("MESSAGES", [
         "string" => "page not found",
         "type" => "info"
     ],
+    "no_permission" => [
+        "string" => "no permission",
+        "type" => "danger"
+    ],
     "task_saved" => [
         "string" => "task saved",
         "type" => "success"

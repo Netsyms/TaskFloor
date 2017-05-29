@@ -132,6 +132,10 @@ function dieifnotloggedin() {
     if ($_SESSION['loggedin'] != true) {
         sendError("Session expired.  Please log out and log in again.");
     }
+    require_once __DIR__ . "/lib/login.php";
+    if (account_has_permission($_SESSION['username'], "TASKFLOOR") == FALSE) {
+        die("You don't have permission to be here.");
+    }
 }
 
 /**
@@ -187,6 +191,11 @@ function redirectIfNotLoggedIn() {
     if ($_SESSION['loggedin'] !== TRUE) {
         header('Location: ' . URL . '/index.php');
         die();
+    }
+    require_once __DIR__ . "/lib/login.php";
+    if (account_has_permission($_SESSION['username'], "TASKFLOOR") == FALSE) {
+        header('Location: ./index.php');
+        die("You don't have permission to be here.");
     }
 }
 

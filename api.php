@@ -18,6 +18,12 @@ if (user_exists($username) !== true || authenticate_user($username, $password, $
     header("HTTP/1.1 403 Unauthorized");
     die("\"403 Unauthorized\"");
 }
+
+if (!account_has_permission($username, "TASKFLOOR")) {
+    header("HTTP/1.1 403 Unauthorized");
+    die("\"403 Unauthorized\"");
+}
+
 $userinfo = getUserByUsername($username);
 
 // query max results
