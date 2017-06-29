@@ -57,10 +57,10 @@ if (!is_empty($taskid) && $database->has('assigned_tasks', ['taskid' => $taskid]
     <?php lang("assigned to") ?>: 
     <input type="text" id="assigned-to-box" name="assignedto" class="form-control" autocomplete="off" value="<?php echo (is_null($tass['userid']) ? "" : getUserByID($tass['userid'])['username'] ); ?>" placeholder="<?php lang("nobody") ?>" />
     <br />
-    <?php lang("assigned on 2") ?>: <input type="date" class="form-control" id="assigned-on-box" name="taskassignedon" value="<?php echo $task['taskassignedon']; ?>" />
+    <?php lang("assigned on 2") ?>: <input type="datetime-local" class="form-control" id="assigned-on-box" name="taskassignedon" value="<?php echo date('o-m-d\TH:i:s', strtotime($task['taskassignedon'])); ?>" />
     <p><i class="fa fa-info-circle"></i> <?php lang("use now tip") ?></p>
     <br />
-    <?php lang("due by 2") ?>: <input type="date" class="form-control" id="due-by-box" name="taskdueby" value="<?php echo $task['taskdueby']; ?>"/>
+    <?php lang("due by 2") ?>: <input type="datetime-local" class="form-control" id="due-by-box" name="taskdueby" value="<?php echo date('o-m-d\TH:i:s', strtotime($task['taskdueby'])); ?>"/>
     <br />
     <button id="savebtn" type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save task") ?></button>
     <a class="btn btn-warning" href="app.php?page=taskman"><i class="fa fa-times"></i> <?php lang("exit") ?></a>
