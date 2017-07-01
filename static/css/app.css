@@ -22,3 +22,20 @@
     /* Using !important in case a "smart" guy messes with inline CSS, to make his life harder */
     overflow-wrap: break-word !important;
 }
+
+
+
+@media screen and (max-width: 767px) {
+    button.navbar-toggle[data-toggle="collapse"] {
+        float: left;
+        margin-left: 15px;
+    }
+
+    .navbar-header .navbar-brand {
+        margin-left: -20px;
+    }
+
+    .navbar-header .navbar-brand img {
+        display: none;
+    }
+}
