@@ -42,10 +42,11 @@ define("PAGES", [
         "icon" => "pencil",
         "styles" => [
             "static/css/bootstrap-datetimepicker.min.css",
-            "static/css/easy-autocomplete.min.css"
+            "static/css/easy-autocomplete.min.css",
+            "static/css/summernote.css"
         ],
         "scripts" => [
-            "static/js/tinymce/tinymce.min.js",
+            "static/js/summernote.min.js",
             "static/js/jquery.easy-autocomplete.min.js",
             "static/js/edittask.js"
         ]

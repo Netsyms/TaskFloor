@@ -1,6 +1,10 @@
-tinymce.init({
-    selector: 'textarea',
-    plugins: 'paste lists'
+$('textarea').summernote({
+    toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['misc', ['undo', 'redo', 'fullscreeen']],
+        ['para', ['ul', 'ol', 'paragraph']],
+    ]
 });
 
 function clearpretty() {
