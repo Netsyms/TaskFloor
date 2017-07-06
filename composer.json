@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "catfan/medoo": "^1.2",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "ezyang/htmlpurifier": "^4.9"
     },
     "license": "OTHER",
     "authors": [

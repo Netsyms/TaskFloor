@@ -156,7 +156,7 @@ function checkDBError($specials = []) {
 }
 
 /*
- * http://stackoverflow.com/a/20075147/2534036
+ * http://stackoverflow.com/a/20075147
  */
 if (!function_exists('base_url')) {
 
@@ -200,7 +200,7 @@ function redirectIfNotLoggedIn() {
 }
 
 /**
- * http://stackoverflow.com/a/24401462/2534036
+ * http://stackoverflow.com/a/24401462
  */
 function checkIsAValidDate($myDateString) {
     return (bool) strtotime($myDateString);

@@ -102,12 +102,17 @@ switch ($VARS['action']) {
             die();
         }
 
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+        $taskdesc = $purifier->purify($VARS['taskdesc']);
+        //$taskdesc = $VARS['taskdesc'];
+
         if (is_empty($VARS['taskid'])) {
-            $database->insert('tasks', ['tasktitle' => $VARS['tasktitle'], 'taskdesc' => $VARS['taskdesc'], 'taskcreatoruid' => $_SESSION['uid']]);
+            $database->insert('tasks', ['tasktitle' => $VARS['tasktitle'], 'taskdesc' => $taskdesc, 'taskcreatoruid' => $_SESSION['uid']]);
             $VARS['taskid'] = $database->id();
             header('Location: app.php?page=edittask&taskid=' . $database->id() . '&msg=task_saved');
         } else {
-            $database->update('tasks', ['tasktitle' => $VARS['tasktitle'], 'taskdesc' => $VARS['taskdesc']], ['taskid' => $VARS['taskid']]);
+            $database->update('tasks', ['tasktitle' => $VARS['tasktitle'], 'taskdesc' => $taskdesc], ['taskid' => $VARS['taskid']]);
             header('Location: app.php?page=edittask&taskid=' . $VARS['taskid'] . '&msg=task_saved');
         }
 
