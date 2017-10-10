@@ -8,7 +8,9 @@ require_once __DIR__ . "/lib/login.php";
 require_once __DIR__ . "/lib/userinfo.php";
 
 
-dieifnotloggedin();
+if ($VARS['action'] !== "signout") {
+    dieifnotloggedin();
+}
 
 function returnToSender($msg, $arg = "") {
     global $VARS;
