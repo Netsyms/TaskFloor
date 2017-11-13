@@ -73,7 +73,12 @@ if (count($tasks) > 0) {
                         <?php
                         if ($task['statusid'] == 0) {
                             ?>
-                            <form action='action.php' method='POST' onsubmit='$("#starttaskbtn<?php echo $task['taskid'] ?>").prop("disabled", true); refreshTasksSoon();' class='form-inline' style='display: inline-block;'>
+                            <form
+                                action='action.php'
+                                method='POST'
+                                data-taskid="<?php echo $task['taskid'] ?>"
+                                data-action="start"
+                                class='form-inline inblock task-btn'>
                                 <input type='hidden' name='taskid' value='<?php echo $task['taskid'] ?>' />
                                 <input type='hidden' name='action' value='start' />
                                 <button type='submit' id='starttaskbtn<?php echo $task['taskid'] ?>' class='btn btn-primary'><i class='fa fa-fw fa-play'></i> <?php lang("start") ?></button>
@@ -81,17 +86,32 @@ if (count($tasks) > 0) {
                             <?php
                         } else if ($task['statusid'] == 1) {
                             ?>
-                            <form action='action.php' method='POST' onsubmit='$("#finishtaskbtn<?php echo $task['taskid'] ?>").prop("disabled", true); refreshTasksSoon();' class='form-inline' style='display: inline-block; padding-left: 5px;'>
+                            <form
+                                action='action.php'
+                                method='POST'
+                                data-taskid="<?php echo $task['taskid'] ?>"
+                                data-action="finish"
+                                class='form-inline inblock task-btn padleft-5px'>
                                 <input type='hidden' name='taskid' value='<?php echo $task['taskid'] ?>' />
                                 <input type='hidden' name='action' value='finish' />
                                 <button type='submit' id='finishtaskbtn<?php echo $task['taskid'] ?>' class='btn btn-success'><i class='fa fa-stop'></i> <?php lang("finish") ?></button>
                             </form>
-                            <form action='action.php' method='POST' onsubmit='$("#pausetaskbtn<?php echo $task['taskid'] ?>").prop("disabled", true); refreshTasksSoon();' class='form-inline' style='display: inline-block; padding-left: 5px;'>
+                            <form
+                                action='action.php' 
+                                method='POST' 
+                                data-taskid="<?php echo $task['taskid'] ?>"
+                                data-action="pause"
+                                class='form-inline inblock task-btn padleft-5px'>
                                 <input type='hidden' name='taskid' value='<?php echo $task['taskid'] ?>' />
                                 <input type='hidden' name='action' value='pause' />
                                 <button type='submit' id='pausetaskbtn<?php echo $task['taskid'] ?>' class='btn btn-warning'><i class='fa fa-pause'></i> <?php lang("pause") ?></button>
                             </form>
-                            <form action='action.php' method='POST' onsubmit='$("#problemtaskbtn<?php echo $task['taskid'] ?>").prop("disabled", true); refreshTasksSoon();' class='form-inline' style='display: inline-block; padding-left: 5px;'>
+                            <form 
+                                action='action.php' 
+                                method='POST' 
+                                data-taskid="<?php echo $task['taskid'] ?>"
+                                data-action="problem"
+                                class='form-inline inblock task-btn padleft-5px'>
                                 <input type='hidden' name='taskid' value='<?php echo $task['taskid'] ?>' />
                                 <input type='hidden' name='action' value='problem' />
                                 <button type='submit' id='problemtaskbtn<?php echo $task['taskid'] ?>' class='btn btn-danger'><i class='fa fa-exclamation'></i> <?php lang("problem") ?></button>
@@ -99,7 +119,12 @@ if (count($tasks) > 0) {
                             <?php
                         } else if ($task['statusid'] == 3 || $task['statusid'] == 4) {
                             ?>
-                            <form action='action.php' method='POST' onsubmit='$("#resumetaskbtn<?php echo $task['taskid'] ?>").prop("disabled", true); refreshTasksSoon();' class='form-inline' style='display: inline-block;'>
+                            <form
+                                action='action.php' 
+                                method='POST' 
+                                data-taskid="<?php echo $task['taskid'] ?>"
+                                data-action="resume"
+                                class='form-inline inblock task-btn'>
                                 <input type='hidden' name='taskid' value='<?php echo $task['taskid'] ?>' />
                                 <input type='hidden' name='action' value='resume' />
                                 <button type='submit' id='resumetaskbtn<?php echo $task['taskid'] ?>' class='btn btn-primary'><i class='fa fa-play'></i> <?php lang("resume") ?></button>

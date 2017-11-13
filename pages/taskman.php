@@ -7,17 +7,17 @@ redirectifnotloggedin();
 <div class="well well-sm">
     <a href="app.php?page=edittask" class="btn btn-primary"><i class="fa fa-plus"></i> <?php lang("new task") ?></a>
 </div>
-<div id="tasksdispdiv" style="<?php
+<div id="tasksdispdiv" class="row<?php
 if ($pageid != "taskman") {
-    echo "max-height: 600px; overflow-y: auto; padding: 5px;";
+    echo ' home-list-container"';
 }
-?>" class="row">
+?>">
     <?php
     include __DIR__ . '/../lib/gettaskman.php';
     ?>
 </div>
 <br />
-<script>
+<script nonce="<?php echo $SECURE_NONCE; ?>">
     function refreshTasks() {
         $.get('lib/gettaskman.php<?php
     if ($pageid == "taskman") {

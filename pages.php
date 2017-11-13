@@ -11,18 +11,25 @@ define("PAGES", [
         ],
         "scripts" => [
             "static/js/jquery.easy-autocomplete.min.js",
-            "static/js/messages.js"
+            "static/js/messages.js",
+            "static/js/tasks.js"
         ]
     ],
     "mytasks" => [
         "title" => "my tasks",
         "navbar" => true,
-        "icon" => "th-list"
+        "icon" => "th-list",
+        "scripts" => [
+            "static/js/tasks.js"
+        ]
     ],
     "taskman" => [
         "title" => "task manager",
         "navbar" => true,
-        "icon" => "tasks"
+        "icon" => "tasks",
+        "scripts" => [
+            "static/js/taskman.js"
+        ]
     ],
     "messages" => [
         "title" => "messages",

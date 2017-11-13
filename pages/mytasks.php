@@ -4,15 +4,17 @@ require_once __DIR__ . '/../required.php';
 redirectifnotloggedin();
 ?>
 <h2 class="page-header"><?php lang("my tasks") ?></h2>
-<div id="tasksdispdiv" style="<?php if ($pageid != "mytasks") {
-        echo "max-height: 600px; overflow-y: auto; padding: 5px;";
-    } ?>" class="row">
+<div id="tasksdispdiv" class="row<?php
+if ($pageid != "mytasks") {
+    echo ' home-list-container"';
+}
+?>">
     <?php
     include __DIR__ . '/../lib/gettasks.php';
     ?>
 </div>
 <br />
-<script>
+<script nonce="<?php echo $SECURE_NONCE; ?>">
     function refreshTasks() {
         $.get('lib/gettasks.php<?php if ($pageid == "mytasks") {
         echo "?alone=1";

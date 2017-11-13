@@ -23,3 +23,30 @@ var options = {
 };
 
 $("#msgtobox").easyAutocomplete(options);
+
+function refreshMsgs() {
+    $.get('lib/getmsgs.php', function (data) {
+        $('#messagedispdiv').html(data);
+        setupTooltips();
+    });
+}
+
+setInterval(function () {
+    refreshMsgs();
+}, 10 * 1000);
+
+$(".msgdelform").on("submit", function () {
+    var msgid = $(this).data("msgid");
+    $('#delmsgbtn' + msgid).prop('disabled', true);
+    setTimeout(function () {
+        refreshMsgs();
+    }, 100);
+});
+
+$("#msgsendform").on("submit", function () {
+    setTimeout(function () {
+        $('#msgsendbox').val('');
+        $('#msgtobox').val('');
+        refreshMsgs();
+    }, 100);
+});
