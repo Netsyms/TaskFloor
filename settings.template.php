@@ -9,7 +9,7 @@ define("DEBUG", false);
 define("DB_TYPE", "mysql");
 define("DB_NAME", "taskfloor");
 define("DB_SERVER", "localhost");
-define("DB_USER", "");
+define("DB_USER", "taskfloor");
 define("DB_PASS", "");
 define("DB_CHARSET", "utf8");
 
