@@ -15,8 +15,8 @@ $messages = $database->select(
         ], [
     "AND" => [
         "OR" => [
+            // TODO: fix to => null
             "to" => $_SESSION['uid'],
-            "to" => null,
             "from" => $_SESSION['uid']
         ],
         "deleted" => 0
