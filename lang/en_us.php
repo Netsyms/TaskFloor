@@ -75,4 +75,5 @@ define("STRINGS", [
     "task deleted" => "Task deleted.",
     "finished on" => "Finished on: {date}",
     "started on" => "Started on: {date}",
+    "add task" => "Add Task"
 ]);

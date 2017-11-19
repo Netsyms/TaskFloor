@@ -3,7 +3,6 @@ require_once __DIR__ . '/../required.php';
 
 redirectifnotloggedin();
 ?>
-<h2 class="page-header"><?php lang("my tasks") ?></h2>
 <div id="tasksdispdiv" class="row<?php
 if ($pageid != "mytasks") {
     echo ' home-list-container"';

@@ -3,9 +3,6 @@ require_once __DIR__ . '/../required.php';
 
 redirectifnotloggedin();
 ?>
-<h2 class="page-header">
-    <?php lang("messages") ?>
-</h2>
 <form action="action.php" method="POST" class="form-horizontal" id="msgsendform">
     <input type="hidden" name="action" value="sendmsg" />
     <div class="form-group">

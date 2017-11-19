@@ -3,9 +3,8 @@ require_once __DIR__ . '/../required.php';
 
 redirectifnotloggedin();
 ?>
-<h1 class="page-header"><?php lang("task manager") ?></h1>
-<div class="well well-sm">
-    <a href="app.php?page=edittask" class="btn btn-primary"><i class="fa fa-plus"></i> <?php lang("new task") ?></a>
+<div class="btn-group mgn-btm-10px">
+    <a href="app.php?page=edittask" class="btn btn-success"><i class="fa fa-plus"></i> <?php lang("new task") ?></a>
 </div>
 <div id="tasksdispdiv" class="row<?php
 if ($pageid != "taskman") {
