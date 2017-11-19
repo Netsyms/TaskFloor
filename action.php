@@ -125,6 +125,8 @@ switch ($VARS['action']) {
         if (checkIsAValidDate($VARS['taskdueby'])) {
             $duedate = date('Y-m-d H:i:s', strtotime($VARS['taskdueby']));
             $database->update('tasks', ['taskdueby' => $duedate], ['taskid' => $VARS['taskid']]);
+        } else if ($VARS['taskdueby'] == "") {
+            $database->update('tasks', ['taskdueby' => null], ['taskid' => $VARS['taskid']]);
         }
         if (!is_empty($VARS['assignedto']) && user_exists($VARS['assignedto'])) {
             $uid = getUserByUsername($VARS['assignedto'])['uid'];
