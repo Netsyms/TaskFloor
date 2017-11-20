@@ -54,6 +54,8 @@ define("PAGES", [
         ],
         "scripts" => [
             "static/js/summernote.min.js",
+            "static/js/moment.min.js",
+            "static/js/bootstrap-datetimepicker.min.js",
             "static/js/jquery.easy-autocomplete.min.js",
             "static/js/edittask.js"
         ]

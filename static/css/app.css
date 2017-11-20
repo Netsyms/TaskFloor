@@ -82,7 +82,10 @@
     overflow-wrap: break-word !important;
 }
 
-
+.panel-body {
+    /* For some reason, the datetimepicker doesn't work unless we do this. */
+    position: relative;
+}
 
 @media screen and (max-width: 767px) {
     button.navbar-toggle[data-toggle="collapse"] {

@@ -45,3 +45,13 @@ var options = {
 };
 
 $("#assigned-to-box").easyAutocomplete(options);
+
+$(function () {
+    $('#assigned-on-box').datetimepicker({
+        format: "ddd MMMM D YYYY h:mm a"
+    });
+    $('#due-by-box').datetimepicker({
+        format: "ddd MMMM D YYYY h:mm a"/*"YYYY-M-DTH:m"*/,
+        useCurrent: false
+    });
+});
