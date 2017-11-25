@@ -5,7 +5,7 @@ TaskFloor allows managers to assign tasks to their employees and track
  deadlines. It also includes a messaging system allowing users 
 to better communicate.
 
-https://biz.netsyms.com/taskfloor
+https://netsyms.biz/apps/taskfloor
 
 Features
 --------
