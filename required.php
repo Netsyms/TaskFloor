@@ -135,6 +135,7 @@ function lang($key, $echo = true) {
     if (array_key_exists($key, STRINGS)) {
         $str = STRINGS[$key];
     } else {
+        trigger_error("Language key \"$key\" does not exist in " . LANGUAGE, E_USER_WARNING);
         $str = $key;
     }
 
@@ -157,6 +158,7 @@ function lang2($key, $replace, $echo = true) {
     if (array_key_exists($key, STRINGS)) {
         $str = STRINGS[$key];
     } else {
+        trigger_error("Language key \"$key\" does not exist in " . LANGUAGE, E_USER_WARNING);
         $str = $key;
     }
 
