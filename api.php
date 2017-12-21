@@ -19,7 +19,7 @@ header("Content-Type: application/json");
 
 $username = $VARS['username'];
 $password = $VARS['password'];
-if (user_exists($username) !== true || authenticate_user($username, $password, $errmsg) !== true) {
+if (user_exists($username) !== true || (authenticate_user($username, $password, $errmsg) !== true && checkAPIKey($password) !== true)) {
     header("HTTP/1.1 403 Unauthorized");
     die("\"403 Unauthorized\"");
 }
