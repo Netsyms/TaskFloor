@@ -58,7 +58,7 @@ if (!is_empty($_GET['page'])) {
                             <?php
                         }
                     }
-                    ?> 
+                    ?>
                 </div>
             </div>
             <nav class="navbar navbar-inverse navbar-blue-grey navbar-<?php echo MENU_BAR_STYLE; ?>-top">
@@ -84,11 +84,11 @@ if (!is_empty($_GET['page'])) {
                                 <?php
                             }
                         }
-                        ?> 
+                        ?>
                         <a class="navbar-brand" href="app.php">
                             <?php
                             echo SITE_TITLE;
-                            ?> 
+                            ?>
                         </a>
                     </div>
 
@@ -98,11 +98,11 @@ if (!is_empty($_GET['page'])) {
                             foreach (PAGES as $id => $pg) {
                                 if (isset($pg['navbar']) && $pg['navbar'] === TRUE) {
                                     if ($pageid == $id) {
-                                        ?> 
+                                        ?>
                                         <li class="active">
                                             <?php
                                         } else {
-                                            ?> 
+                                            ?>
                                         <li><?php
                                         }
                                         ?><a href="app.php?page=<?php echo $id; ?>">
@@ -118,8 +118,8 @@ if (!is_empty($_GET['page'])) {
                             }
                             ?></ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['realname'] ?></a></li>
-                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <?php lang("sign out") ?></a></li>
+                            <li><a href="<?php echo PORTAL_URL; ?>"><i class="fa fa-user fa-fw"></i> <span class="hidden-sm"><?php echo $_SESSION['realname'] ?></span></a></li>
+                            <li><a href="action.php?action=signout"><i class="fa fa-sign-out fa-fw"></i> <span class="hidden-sm"><?php lang("sign out") ?></span></a></li>
                         </ul>
                     </div>
                 </div>
