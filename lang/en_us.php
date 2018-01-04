@@ -33,6 +33,7 @@ define("STRINGS", [
     "no messages" => "No messages found.",
     "all caught up" => "You're all caught up!",
     "home" => "Home",
+    "more" => "More",
     "my tasks" => "My Tasks",
     "message board" => "Message Board",
     "messages" => "Messages",
