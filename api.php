@@ -79,7 +79,7 @@ switch ($VARS['action']) {
             "AND" => [
                 "OR" => [
                     "to" => $userinfo['uid'],
-                    "to" => null,
+                    "to #null" => null,
                     "from" => $userinfo['uid']
                 ],
                 "deleted" => 0
