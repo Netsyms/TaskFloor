@@ -58,6 +58,7 @@ switch ($VARS['action']) {
                     break;
             }
             $out['tasks'][] = [
+                "id" => $task['taskid'],
                 "title" => $task['tasktitle'],
                 "description" => $task['taskdesc'],
                 "assigned" => date("F j, Y, g:i a", strtotime($task['taskassignedon'])),
@@ -121,6 +122,36 @@ switch ($VARS['action']) {
             ];
         }
         exit(json_encode($out));
+    case "updatetask":
+        if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]])) {
+            die('{"status": "ERROR", "msg": "You are not assigned to this task!"}');
+        }
+
+        switch ($VARS['status']) {
+            case "start":
+                $database->update('assigned_tasks', ['starttime' => date("Y-m-d H:i:s"), 'statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                break;
+            case "resume":
+                if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid'], 'starttime[!]' => null]])) {
+                    die('{"status": "ERROR", "msg": "Cannot resume non-started task."}');
+                }
+                $database->update('assigned_tasks', ['statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                break;
+            case "finish":
+                $database->update('assigned_tasks', ['endtime' => date("Y-m-d H:i:s"), 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                break;
+            case "pause":
+                $database->update('assigned_tasks', ['statusid' => 3], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                break;
+            case "problem":
+                $database->update('assigned_tasks', ['statusid' => 4], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                break;
+            default:
+                die('{"status": "ERROR", "msg": "Invalid status requested."}');
+        }
+        die('{"status": "OK", "msg": "Task updated."}');
+    case "sendmsg":
+        
     default:
         header("HTTP/1.1 400 Bad Request");
         die("\"400 Bad Request\"");
