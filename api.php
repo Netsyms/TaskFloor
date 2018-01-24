@@ -151,7 +151,17 @@ switch ($VARS['action']) {
         }
         die('{"status": "OK", "msg": "Task updated."}');
     case "sendmsg":
-        
+        $msg = strip_tags($VARS['msg']);
+        if (user_exists($VARS['to'])) {
+            $to = getUserByUsername($VARS['to'])['uid'];
+        } else {
+            die('{"status": "ERROR", "msg": "Invalid user."}');
+        }
+        if (is_empty($msg)) {
+            die('{"status": "ERROR", "msg": "Missing message."}');
+        }
+        $database->insert('messages', ['messagetext' => $msg, 'messagedate' => date("Y-m-d H:i:s"), 'from' => $userinfo['uid'], 'to' => $to]);
+        die('{"status": "OK"}');
     default:
         header("HTTP/1.1 400 Bad Request");
         die("\"400 Bad Request\"");
