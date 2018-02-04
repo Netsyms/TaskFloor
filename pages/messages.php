@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -8,23 +7,17 @@ require_once __DIR__ . '/../required.php';
 
 redirectifnotloggedin();
 ?>
-<form action="action.php" method="POST" class="form-horizontal" id="msgsendform">
+<form action="action.php" method="POST" class="form-horizontal mb-1" id="msgsendform">
     <input type="hidden" name="action" value="sendmsg" />
-    <div class="form-group">
-        <div class="col-xs-12 col-sm-6 mgn-btm-5px">
-            <input type="text" id="msgsendbox" name="msg" class="form-control" placeholder="<?php lang("send message") ?>" autocomplete="off" />
+    <div class="input-group" id="msgsenddiv"> <!--col-12 col-md-5 col-lg-4-->
+        <input type="text" id="msgsendbox" name="msg" class="form-control" placeholder="<?php lang("send message") ?>" autocomplete="off" />
+        <input type="text" id="msgtobox" name="to" class="form-control" placeholder="<?php lang("to") ?>" autocomplete="off" />
+        <div class="input-group-append">
+            <button id="msgsendbtn" class="btn btn-primary btn-sm" type="submit"><i class="fas fa-paper-plane"></i> <?php lang("send") ?></button>
         </div>
-        <div class="col-xs-9 col-sm-4 padright-0px">
-            <input type="text" id="msgtobox" name="to" class="form-control" placeholder="<?php lang("to") ?>" autocomplete="off" />
-        </div>
-        <button id="msgsendbtn" class="btn btn-primary col-xs-3 col-sm-2" type="submit"><i class="fa fa-paper-plane"></i> <?php lang("send") ?></button>
     </div>
 </form>
-<div<?php
-if ($pageid != "messages") {
-    echo ' class="home-list-container"';
-}
-?>>
+<div>
     <div id="messagedispdiv">
         <?php
         include __DIR__ . '/../lib/getmsgs.php';

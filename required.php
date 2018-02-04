@@ -39,16 +39,16 @@ if ($_SESSION['mobile'] === TRUE) {
             . "style-src 'self' 'unsafe-inline'; "
             . "script-src 'self' 'unsafe-inline'");
 } else {
-    header("Content-Security-Policy: "
-            . "default-src 'self';"
-            . "object-src 'none'; "
-            . "img-src * data:; "
-            . "media-src 'self'; "
-            . "frame-src 'none'; "
-            . "font-src 'self'; "
-            . "connect-src *; "
-            . "style-src 'self' 'nonce-$SECURE_NONCE'; "
-            . "script-src 'self' 'nonce-$SECURE_NONCE'");
+//    header("Content-Security-Policy: "
+//            . "default-src 'self';"
+//            . "object-src 'none'; "
+//            . "img-src * data:; "
+//            . "media-src 'self'; "
+//            . "frame-src 'none'; "
+//            . "font-src 'self'; "
+//            . "connect-src *; "
+//            . "style-src 'self' 'nonce-$SECURE_NONCE'; "
+//            . "script-src 'self' 'nonce-$SECURE_NONCE'");
 }
 
 // Composer

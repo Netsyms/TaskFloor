@@ -1,5 +1,4 @@
 <?php
-
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -8,18 +7,16 @@ require_once __DIR__ . '/../required.php';
 
 redirectifnotloggedin();
 ?>
-<div class="panel panel-blue">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <i class="fa fa-pencil-square-o"></i> <?php
-            if (is_empty($VARS['taskid'])) {
-                lang("add task");
-            } else {
-                lang("edit task");
-            }
-            ?>
-        </h3>
-    </div>
+<div class="card border-blue-grey">
+    <h3 class="card-header text-blue-grey">
+        <i class="fas fa-edit"></i> <?php
+        if (is_empty($VARS['taskid'])) {
+            lang("add task");
+        } else {
+            lang("edit task");
+        }
+        ?>
+    </h3>
 
     <?php
     include_once __DIR__ . "/../lib/userinfo.php";
@@ -62,27 +59,26 @@ redirectifnotloggedin();
     }
     ?>
     <form action="action.php" method="GET" onsubmit="prettysave();">
-        <div class="panel-body">
-            <input type="hidden" name="action" value="edittask" />
-            <?php if (!is_empty($taskid)) { ?>
-                <input type="hidden" name="taskid" value="<?php echo $taskid; ?>" />
-            <?php } ?>
+        <div class="card-body">
             <?php lang("task title") ?>: <input type="text" name="tasktitle" placeholder="<?php lang("task title") ?>" required="required" class="form-control" value="<?php echo $task['tasktitle']; ?>"/>
             <br />
             <?php lang("task description") ?>:<br />
             <textarea name="taskdesc" id="taskdesc" class="form-control"><?php echo $task['taskdesc']; ?></textarea>
             <br />
-            <?php lang("assigned to") ?>: 
+            <?php lang("assigned to") ?>:
             <input type="text" id="assigned-to-box" name="assignedto" class="form-control" autocomplete="off" value="<?php echo (is_null($tass['userid']) ? "" : getUserByID($tass['userid'])['username'] ); ?>" placeholder="<?php lang("nobody") ?>" />
             <br />
-            <?php lang("assigned on 2") ?>: <input type="text" class="form-control" id="assigned-on-box" name="taskassignedon" value="<?php echo (is_empty($task['taskassignedon']) ? "" : date("D F j, Y g:i a"/*'Y-m-d\TH:i'*/, strtotime($task['taskassignedon']))); ?>" />
-            <!--<p><i class="fa fa-info-circle"></i> <?php lang("use now tip") ?></p>-->
+            <?php lang("assigned on 2") ?>: <input type="text" class="form-control" id="assigned-on-box" name="taskassignedon" data-toggle="datetimepicker" data-target="#assigned-on-box" value="<?php echo (is_empty($task['taskassignedon']) ? "" : date("D F j, Y g:i a"/* 'Y-m-d\TH:i' */, strtotime($task['taskassignedon']))); ?>" />
             <br />
-            <?php lang("due by 2") ?>: <input type="text" class="form-control" id="due-by-box" name="taskdueby" value="<?php echo (is_empty($task['taskdueby']) ? "" : date("D F j, Y g:i a", strtotime($task['taskdueby']))); ?>"/>
+            <?php lang("due by 2") ?>: <input type="text" class="form-control" id="due-by-box" name="taskdueby" data-toggle="datetimepicker" data-target="#due-by-box" value="<?php echo (is_empty($task['taskdueby']) ? "" : date("D F j, Y g:i a", strtotime($task['taskdueby']))); ?>"/>
         </div>
-        <div class="panel-footer">
-            <button id="savebtn" type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php lang("save task") ?></button>
-            <a class="btn btn-warning pull-right" href="app.php?page=taskman"><i class="fa fa-times"></i> <?php lang("exit") ?></a>
+        <input type="hidden" name="action" value="edittask" />
+        <?php if (!is_empty($taskid)) { ?>
+            <input type="hidden" name="taskid" value="<?php echo $taskid; ?>" />
+        <?php } ?>
+        <div class="card-footer d-flex">
+            <button id="savebtn" type="submit" class="btn btn-success mr-auto"><i class="fas fa-save"></i> <?php lang("save task") ?></button>
+            <a class="btn btn-warning" href="app.php?page=taskman"><i class="fas fa-times"></i> <?php lang("exit") ?></a>
         </div>
     </form>
 </div>

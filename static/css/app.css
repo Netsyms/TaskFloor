@@ -2,80 +2,53 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-.banner-image {
-    max-height: 100px;
-    margin: 2em auto;
+body {
+    padding-top: 4rem;
+}
+
+.brand-img {
     border: 1px solid grey;
-    border-radius: 12px;
+    border-radius: 12%;
+    margin-top: -2px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    height: 25px;
+}
+
+.navbar-toggler {
+    border: none;
+    padding-right: 1.5rem;
+}
+
+.navbar-toggler-icon {
+    padding: 0px;
+    margin: 0px;
 }
 
 .navbar-brand {
-    font-size: 110%;
+    font-size: 120%;
+    padding-right: 1rem;
+    margin-top: 0.2rem;
 }
 
-.navbar-brand img {
-    height: 35px;
-    padding-bottom: 12px;
-    padding-left: 5px;
+#main-content {
+    padding-top: 1rem;
 }
 
-.pad-75px {
-    height: 75px;
-}
-
-.mgn-btm-10px {
-    margin-bottom: 10px;
-}
-
-.mgn-top-8px {
-    margin-top: 8px;
-}
-
-.black-text {
-    color: black;
-}
-
-.msgdelform {
-    display: inline-block;
-    margin-left: 5px;
-}
-
-.inblock {
-    display: inline-block;
-}
-
-.padleft-5px {
-    padding-left: 5px;
-}
-
-.height-52px {
-    height: 52px;
-}
-
-.mgn-btm-5px {
-    margin-bottom: 5px;
-}
-
-.padright-0px {
-    padding-right: 0px;
-}
-
-#msgsendbtn {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    margin-left: 0px;
-}
-
-.home-list-container {
-    max-height: 600px;
-    overflow-y: auto;
-    padding: 5px;
+#msg-alert-box {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 4rem;
+    z-index: 999999;
+    padding: 0px 5px;
 }
 
 .footer {
     margin-top: 10em;
     text-align: center;
 }
+
 
 .message-content {
     overflow-wrap: break-word;
@@ -86,22 +59,67 @@
     overflow-wrap: break-word !important;
 }
 
-.panel-body {
-    /* For some reason, the datetimepicker doesn't work unless we do this. */
-    position: relative;
+.btn-bin {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+    padding-top: 0.3rem;
 }
 
-@media screen and (max-width: 767px) {
-    button.navbar-toggle[data-toggle="collapse"] {
+.bin-btn {
+    margin: 0.3rem;
+}
+
+@media (max-width: 576px) {
+    #msgsenddiv .input-group-append .btn {
+        width: 75px;
+    }
+
+    #msgsendbox {
+        width: 100%;
+        min-width: 15rem;
+    }
+
+    #msgsenddiv .easy-autocomplete {
+        width: calc(100% - 75px) !important;
+    }
+
+    #msgsenddiv .easy-autocomplete ul {
+        margin-top: 55px;
+    }
+
+    #msgtobox {
+        position: relative;
         float: left;
-        margin-left: 15px;
+        width: 100%;
     }
+}
 
-    .navbar-header .navbar-brand {
-        margin-left: -20px;
-    }
+.card #msgsenddiv .input-group-append .btn {
+    width: 75px;
+}
 
-    .navbar-header .navbar-brand img {
-        display: none;
-    }
+.card #msgsendbox {
+    width: 100%;
+    min-width: 15rem;
+}
+
+.card #msgsenddiv .easy-autocomplete {
+    width: calc(100% - 75px) !important;
+}
+
+.card #msgsenddiv .easy-autocomplete ul {
+    margin-top: 55px;
+}
+
+.card #msgtobox {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.easy-autocomplete input {
+    border-radius: 0px !important;
 }

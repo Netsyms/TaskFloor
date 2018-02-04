@@ -10,7 +10,7 @@ define("PAGES", [
     "home" => [
         "title" => "home",
         "navbar" => true,
-        "icon" => "home",
+        "icon" => "fas fa-home",
         "styles" => [
             "static/css/easy-autocomplete.min.css"
         ],
@@ -23,7 +23,7 @@ define("PAGES", [
     "mytasks" => [
         "title" => "my tasks",
         "navbar" => true,
-        "icon" => "th-list",
+        "icon" => "fas fa-th-list",
         "scripts" => [
             "static/js/tasks.js"
         ]
@@ -31,7 +31,7 @@ define("PAGES", [
     "taskman" => [
         "title" => "task manager",
         "navbar" => true,
-        "icon" => "tasks",
+        "icon" => "fas fa-tasks",
         "scripts" => [
             "static/js/taskman.js"
         ]
@@ -39,7 +39,7 @@ define("PAGES", [
     "messages" => [
         "title" => "messages",
         "navbar" => true,
-        "icon" => "comments",
+        "icon" => "fas fa-comments",
         "styles" => [
             "static/css/easy-autocomplete.min.css"
         ],
@@ -51,16 +51,16 @@ define("PAGES", [
     "edittask" => [
         "title" => "edit task",
         "navbar" => false,
-        "icon" => "pencil",
+        "icon" => "fas fa-pencil",
         "styles" => [
-            "static/css/bootstrap-datetimepicker.min.css",
             "static/css/easy-autocomplete.min.css",
-            "static/css/summernote.css"
+            "static/css/tempusdominus-bootstrap-4.min.css",
+            "static/css/summernote-lite.css"
         ],
         "scripts" => [
-            "static/js/summernote.min.js",
+            "static/js/summernote-lite.js",
             "static/js/moment.min.js",
-            "static/js/bootstrap-datetimepicker.min.js",
+            "static/js/tempusdominus-bootstrap-4.min.js",
             "static/js/jquery.easy-autocomplete.min.js",
             "static/js/edittask.js"
         ]
