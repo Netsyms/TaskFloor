@@ -8,7 +8,8 @@ $('#taskdesc').summernote({
         ['font', ['strikethrough', 'superscript', 'subscript']],
         ['misc', ['undo', 'redo', 'fullscreeen']],
         ['para', ['ul', 'ol', 'paragraph']],
-    ]
+    ],
+    minHeight: 100
 });
 
 function clearpretty() {

@@ -60,17 +60,25 @@ redirectifnotloggedin();
     ?>
     <form action="action.php" method="GET" onsubmit="prettysave();">
         <div class="card-body">
-            <?php lang("task title") ?>: <input type="text" name="tasktitle" placeholder="<?php lang("task title") ?>" required="required" class="form-control" value="<?php echo $task['tasktitle']; ?>"/>
-            <br />
-            <?php lang("task description") ?>:<br />
-            <textarea name="taskdesc" id="taskdesc" class="form-control"><?php echo $task['taskdesc']; ?></textarea>
-            <br />
-            <?php lang("assigned to") ?>:
-            <input type="text" id="assigned-to-box" name="assignedto" class="form-control" autocomplete="off" value="<?php echo (is_null($tass['userid']) ? "" : getUserByID($tass['userid'])['username'] ); ?>" placeholder="<?php lang("nobody") ?>" />
-            <br />
-            <?php lang("assigned on 2") ?>: <input type="text" class="form-control" id="assigned-on-box" name="taskassignedon" data-toggle="datetimepicker" data-target="#assigned-on-box" value="<?php echo (is_empty($task['taskassignedon']) ? "" : date("D F j, Y g:i a"/* 'Y-m-d\TH:i' */, strtotime($task['taskassignedon']))); ?>" />
-            <br />
-            <?php lang("due by 2") ?>: <input type="text" class="form-control" id="due-by-box" name="taskdueby" data-toggle="datetimepicker" data-target="#due-by-box" value="<?php echo (is_empty($task['taskdueby']) ? "" : date("D F j, Y g:i a", strtotime($task['taskdueby']))); ?>"/>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <?php lang("task title") ?>: <input type="text" name="tasktitle" placeholder="<?php lang("task title") ?>" required="required" class="form-control" value="<?php echo $task['tasktitle']; ?>"/>
+                </div>
+                <div class="col-12 mb-3">
+                    <?php lang("task description") ?>:<br />
+                    <textarea name="taskdesc" id="taskdesc" class="form-control"><?php echo $task['taskdesc']; ?></textarea>
+                </div>
+                <div class="col-12 col-lg-4 mb-3">
+                    <?php lang("assigned to") ?>:
+                    <input type="text" id="assigned-to-box" name="assignedto" class="form-control" autocomplete="off" value="<?php echo (is_null($tass['userid']) ? "" : getUserByID($tass['userid'])['username'] ); ?>" placeholder="<?php lang("nobody") ?>" />
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                    <?php lang("assigned on 2") ?>: <input type="text" class="form-control" id="assigned-on-box" name="taskassignedon" data-toggle="datetimepicker" data-target="#assigned-on-box" value="<?php echo (is_empty($task['taskassignedon']) ? "" : date("D F j, Y g:i a"/* 'Y-m-d\TH:i' */, strtotime($task['taskassignedon']))); ?>" />
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <?php lang("due by 2") ?>: <input type="text" class="form-control" id="due-by-box" name="taskdueby" data-toggle="datetimepicker" data-target="#due-by-box" value="<?php echo (is_empty($task['taskdueby']) ? "" : date("D F j, Y g:i a", strtotime($task['taskdueby']))); ?>"/>
+                </div>
+            </div>
         </div>
         <input type="hidden" name="action" value="edittask" />
         <?php if (!is_empty($taskid)) { ?>
