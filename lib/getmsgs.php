@@ -77,6 +77,6 @@ if (count($messages) > 0) {
         <?php
     }
 } else {
-    echo "<div class='alert alert-info'><i class='fas fa-commenting'></i> " . lang("no messages", false) . "</div>";
+    echo "<div class='alert alert-info'><i class='far fa-comment-alt'></i> " . lang("no messages", false) . "</div>";
 }
 ?>

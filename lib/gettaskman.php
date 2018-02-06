@@ -155,7 +155,7 @@ if (count($tasks) > 0) {
     }
 } else {
     if (isset($_GET['alone']) || (isset($pageid) && $pageid != "home")) {
-        echo "<div class=\"col-12 col-sm-6 col-md-4\">";
+        echo "<div class=\"col-12 col-md-6\">";
     }
     echo "<div class='alert alert-info'><i class='fas fa-info-circle'></i> " . lang("no tasks", false) . "</div>";
     if (isset($_GET['alone']) || (isset($pageid) && $pageid != "home")) {

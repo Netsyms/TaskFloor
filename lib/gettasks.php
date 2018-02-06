@@ -176,12 +176,12 @@ if (count($tasks) > 0) {
         }
     }
 } else {
-    if (isset($_GET['alone']) || (isset($pageid) && $pageid != "home")) {
-        echo "<div class=\"row\"><div class=\"col-12 col-sm-6 col-md-4\">";
+    if (!$home) {
+        echo "<div class=\"col-12 col-md-6\">";
     }
     echo "<div class='alert alert-success'><i class='fas fa-check'></i> " . lang("all caught up", false) . "</div>";
-    if (isset($_GET['alone']) || (isset($pageid) && $pageid != "home")) {
-        echo "</div></div>";
+    if (!$home) {
+        echo "</div>";
     }
 }
 ?>
