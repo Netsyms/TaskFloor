@@ -29,7 +29,7 @@ if (count($tasks) > 0) {
             $colorclass = 'border-blue';
         }
 
-        $statusicon = "";
+        $statusicon = "fas fa-ellipsis-h";
         if ($task['statusid'] == 1) {
             $statusicon = 'fas fa-play';
         } else if ($task['statusid'] == 3) {
@@ -109,7 +109,7 @@ if (count($tasks) > 0) {
             <div class="list-group-item <?php echo $colorclass
             ?>">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><i class="fas <?php echo $statusicon ?> fa-fw"></i> <?php echo $task['tasktitle'] ?></h5>
+                    <h5 class="mb-1"><i class="<?php echo $statusicon ?> fa-fw"></i> <?php echo $task['tasktitle'] ?></h5>
                 </div>
                 <p class="task-description"><?php echo $task['taskdesc'] ?></p>
                 <div class="row">
@@ -141,7 +141,7 @@ if (count($tasks) > 0) {
             ?>
             <div class='card <?php echo $colorclass ?>'>
                 <h4 class='card-header'>
-                    <i class="fas <?php echo $statusicon ?> fa-fw"></i> <?php echo $task['tasktitle'] ?>
+                    <i class="<?php echo $statusicon ?> fa-fw"></i> <?php echo $task['tasktitle'] ?>
                 </h4>
                 <div class='card-body task-description'>
                     <?php echo $task['taskdesc'] ?>
