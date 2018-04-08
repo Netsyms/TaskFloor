@@ -6,7 +6,7 @@
 
 
 /**
- * Authentication and account functions.  Connects to a Portal instance.
+ * Authentication and account functions.  Connects to an AccountHub instance.
  */
 
 /**
