@@ -9,9 +9,6 @@ function setupTooltips() {
 }
 
 $(document).ready(function () {
-    $("#msg-alert-box").on("click", ".close", function (e) {
-        $("#msg-alert-box").fadeOut("slow");
-    });
 
     if ($("#msg-alert-box").length) {
         $("#msg-alert-box .progress").css("height", "3px");
@@ -65,6 +62,10 @@ $(document).ready(function () {
             $("#msg-alert-box").css("opacity", "1");
             msginteractiontick = 0;
             console.log("👈😎👈 zoop");
+        });
+        $("#msg-alert-box").on("click", ".close", function (e) {
+            $("#msg-alert-box").fadeOut("slow");
+            window.clearInterval(msgticker);
         });
     }
 
