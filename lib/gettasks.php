@@ -48,7 +48,7 @@ if (count($tasks) > 0) {
                 class='bin-btn'>
                 <input type='hidden' name='taskid' value='" . $task['taskid'] . "' />
                 <input type='hidden' name='action' value='start' />
-                <button type='submit' id='starttaskbtn" . $task['taskid'] . "' class='btn btn-primary'><i class='fas fa-fw fa-play'></i> " . lang("start", false) . "</button>
+                <button type='submit' id='starttaskbtn" . $task['taskid'] . "' class='btn btn-primary'><i class='fas fa-fw fa-play'></i> " . $Strings->get("start", false) . "</button>
             </form>";
         } else if ($task['statusid'] == 1) {
             $btns = "<form
@@ -59,7 +59,7 @@ if (count($tasks) > 0) {
                 class='bin-btn'>
                 <input type='hidden' name='taskid' value='" . $task['taskid'] . "' />
                 <input type='hidden' name='action' value='finish' />
-                <button type='submit' id='finishtaskbtn" . $task['taskid'] . "' class='btn btn-success'><i class='fas fa-fw fa-stop'></i> " . lang("finish", false) . "</button>
+                <button type='submit' id='finishtaskbtn" . $task['taskid'] . "' class='btn btn-success'><i class='fas fa-fw fa-stop'></i> " . $Strings->get("finish", false) . "</button>
             </form>";
             $btns .= "<form
                 action='action.php'
@@ -69,7 +69,7 @@ if (count($tasks) > 0) {
                 class='bin-btn'>
                 <input type='hidden' name='taskid' value='" . $task['taskid'] . "' />
                 <input type='hidden' name='action' value='pause' />
-                <button type='submit' id='pausetaskbtn" . $task['taskid'] . "' class='btn btn-warning'><i class='fas fa-fw fa-pause'></i> " . lang("pause", false) . "</button>
+                <button type='submit' id='pausetaskbtn" . $task['taskid'] . "' class='btn btn-warning'><i class='fas fa-fw fa-pause'></i> " . $Strings->get("pause", false) . "</button>
             </form>";
             $btns .= "<form
                 action='action.php'
@@ -79,7 +79,7 @@ if (count($tasks) > 0) {
                 class='bin-btn'>
                 <input type='hidden' name='taskid' value='" . $task['taskid'] . "' />
                 <input type='hidden' name='action' value='problem' />
-                <button type='submit' id='problemtaskbtn" . $task['taskid'] . "' class='btn btn-danger'><i class='fas fa-fw fa-exclamation'></i> " . lang("problem", false) . "</button>
+                <button type='submit' id='problemtaskbtn" . $task['taskid'] . "' class='btn btn-danger'><i class='fas fa-fw fa-exclamation'></i> " . $Strings->get("problem", false) . "</button>
             </form>";
         } else if ($task['statusid'] == 3 || $task['statusid'] == 4) {
             $btns = "<form
@@ -90,19 +90,19 @@ if (count($tasks) > 0) {
                 class='bin-btn'>
                 <input type='hidden' name='taskid' value='" . $task['taskid'] . "' />
                 <input type='hidden' name='action' value='resume' />
-                <button type='submit' id='resumetaskbtn" . $task['taskid'] . "' class='btn btn-primary'><i class='fas fa-fw fa-play'></i> " . lang("resume", false) . "</button>
+                <button type='submit' id='resumetaskbtn" . $task['taskid'] . "' class='btn btn-primary'><i class='fas fa-fw fa-play'></i> " . $Strings->get("resume", false) . "</button>
             </form>";
         }
 
-        $assignedon = "<i class='fas fa-hourglass-start fa-fw'></i> " . lang2("assigned on", ["date" => date("F j, Y, g:i a", strtotime($task['taskassignedon']))], false);
-        $dueby = "<i class='fas fa-hourglass-end fa-fw'></i> " . lang2("due by", ["date" => ($task['taskdueby'] > 0 ? date("F j, Y, g:i a", strtotime($task['taskdueby'])) : lang("no due date", false))], false);
+        $assignedon = "<i class='fas fa-hourglass-start fa-fw'></i> " . $Strings->build("assigned on", ["date" => date("F j, Y, g:i a", strtotime($task['taskassignedon']))], false);
+        $dueby = "<i class='fas fa-hourglass-end fa-fw'></i> " . $Strings->build("due by", ["date" => ($task['taskdueby'] > 0 ? date("F j, Y, g:i a", strtotime($task['taskdueby'])) : $Strings->get("no due date", false))], false);
         $startedon = "";
         if ($task['statusid'] > 0) {
-            $startedon = "<i class='fas fa-play fa-fw'></i> " . lang2("started on", ["date" => date("F j, Y, g:i a", strtotime($task['starttime']))], false);
+            $startedon = "<i class='fas fa-play fa-fw'></i> " . $Strings->build("started on", ["date" => date("F j, Y, g:i a", strtotime($task['starttime']))], false);
         }
         $finishedon = "";
         if ($task['statusid'] == 2) {
-            $finishedon = "<i class='fas fa-stop fa-fw'></i> " . lang2("finished on", ["date" => date("F j, Y, g:i a", strtotime($task['endtime']))], false);
+            $finishedon = "<i class='fas fa-stop fa-fw'></i> " . $Strings->build("finished on", ["date" => date("F j, Y, g:i a", strtotime($task['endtime']))], false);
         }
         if ($home) {
             ?>
@@ -179,7 +179,7 @@ if (count($tasks) > 0) {
     if (!$home) {
         echo "<div class=\"col-12 col-md-6\">";
     }
-    echo "<div class='alert alert-success'><i class='fas fa-check'></i> " . lang("all caught up", false) . "</div>";
+    echo "<div class='alert alert-success'><i class='fas fa-check'></i> " . $Strings->get("all caught up", false) . "</div>";
     if (!$home) {
         echo "</div>";
     }

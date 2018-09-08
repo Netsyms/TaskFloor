@@ -9,7 +9,7 @@ redirectifnotloggedin();
 ?>
 <div class="btn-toolbar mb-4">
     <div class="btn-group mr-2 mb-2">
-        <a href="app.php?page=edittask" class="btn btn-success"><i class="fas fa-plus"></i> <?php lang("new task") ?></a>
+        <a href="app.php?page=edittask" class="btn btn-success"><i class="fas fa-plus"></i> <?php $Strings->get("new task") ?></a>
     </div>
 </div>
 <div id="tasksdispdiv" class="row justify-content-center">

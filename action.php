@@ -8,8 +8,6 @@
  * Make things happen when buttons are pressed and forms submitted.
  */
 require_once __DIR__ . "/required.php";
-require_once __DIR__ . "/lib/login.php";
-require_once __DIR__ . "/lib/userinfo.php";
 
 
 if ($VARS['action'] !== "signout") {
@@ -32,7 +30,7 @@ function returnToSender($msg, $arg = "") {
     die();
 }
 
-if ($VARS['action'] != "signout" && !account_has_permission($_SESSION['username'], "TASKFLOOR")) {
+if ($VARS['action'] != "signout" && !(new User($_SESSION['uid']))->hasPermission("TASKFLOOR")) {
     returnToSender("no_permission");
 }
 
@@ -47,8 +45,8 @@ switch ($VARS['action']) {
         if (is_empty($VARS['to'])) {
             $to = null;
             die(); // TODO: add some kind of permission thing to allow this
-        } else if (user_exists($VARS['to'])) {
-            $to = getUserByUsername($VARS['to'])['uid'];
+        } else if (User::byUsername($VARS['to'])->exists()) {
+            $to = User::byUsername($VARS['to'])->getUID();
         } else {
             die();
         }
@@ -56,6 +54,10 @@ switch ($VARS['action']) {
             die();
         }
         $database->insert('messages', ['messagetext' => $msg, 'messagedate' => date("Y-m-d H:i:s"), 'from' => $_SESSION['uid'], 'to' => $to]);
+        if (!is_null($to)) {
+            $touser = new User($to);
+            Notifications::add($touser, $Strings->get("TaskFloor: New message"), "$msg\nFrom: " . (new User($_SESSION['uid']))->getName());
+        }
         break;
     case "delmsg":
         header('HTTP/1.0 204 No Content');
@@ -66,10 +68,11 @@ switch ($VARS['action']) {
             die();
         }
         $msg = $database->select('messages', ['to', 'from'], ['messageid' => $VARS['msgid']])[0];
+        $me = new User($_SESSION['uid']);
         if ($msg['to'] == $_SESSION['uid'] ||
                 $msg['from'] == $_SESSION['uid'] ||
-                isManagerOf($_SESSION['uid'], $msg['to']) ||
-                isManagerOf($_SESSION['uid'], $msg['from'])) {
+                $me->isManagerOf(new User($msg['to'])) ||
+                $me->isManagerOf(new User($msg['from']))) {
             $database->update('messages', ['deleted' => 1], ['messageid' => $VARS['msgid']]);
         }
         break;
@@ -85,6 +88,11 @@ switch ($VARS['action']) {
             die('Invalid operation.');
         }
         header('HTTP/1.0 204 No Content');
+        if ($database->get('assigned_tasks', 'statusid', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]) == 4) {
+            $owneruid = $database->get('tasks', 'taskcreatoruid', ['taskid' => $VARS['taskid']]);
+            $tasktitle = $database->get('tasks', 'tasktitle', ['taskid' => $VARS['taskid']]);
+            Notifications::add(new User($owneruid), $Strings->get("TaskFloor: Problem resolved"), (new User($_SESSION['uid']))->getName() . " has resolved their problem with task $tasktitle.");
+        }
         $database->update('assigned_tasks', ['statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
         break;
     case "finish":
@@ -93,6 +101,9 @@ switch ($VARS['action']) {
             die('You are not assigned to this task!');
         }
         $database->update('assigned_tasks', ['endtime' => date("Y-m-d H:i:s"), 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        $owneruid = $database->get('tasks', 'taskcreatoruid', ['taskid' => $VARS['taskid']]);
+        $tasktitle = $database->get('tasks', 'tasktitle', ['taskid' => $VARS['taskid']]);
+        Notifications::add(new User($owneruid), $Strings->get("TaskFloor: Task finished"), (new User($_SESSION['uid']))->getName() . " has finished task $tasktitle.");
         break;
     case "pause":
         if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]])) {
@@ -107,6 +118,9 @@ switch ($VARS['action']) {
         }
         header('HTTP/1.0 204 No Content');
         $database->update('assigned_tasks', ['statusid' => 4], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $_SESSION['uid']]]);
+        $owneruid = $database->get('tasks', 'taskcreatoruid', ['taskid' => $VARS['taskid']]);
+        $tasktitle = $database->get('tasks', 'tasktitle', ['taskid' => $VARS['taskid']]);
+        Notifications::add(new User($owneruid), $Strings->get("TaskFloor: Problem reported"), (new User($_SESSION['uid']))->getName() . " has reported a problem with task $tasktitle.");
         break;
     case "edittask":
         if (is_empty($VARS['tasktitle'])) {
@@ -139,8 +153,12 @@ switch ($VARS['action']) {
             $database->update('tasks', ['taskdueby' => null], ['taskid' => $VARS['taskid']]);
         }
         if (!is_empty($VARS['assignedto']) && user_exists($VARS['assignedto'])) {
-            $uid = getUserByUsername($VARS['assignedto'])['uid'];
-            $managed_uids = getManagedUIDs($_SESSION['uid']);
+            $uid = User::byUsername($VARS['assignedto'])->getUID();
+            $managed_users = (new User($_SESSION['uid']))->getManagedUsers();
+            $managed_uids = [];
+            foreach ($managed_users as $m) {
+                $managed_uids[] = $m->getUID();
+            }
             // allow self-assignment
             if (!in_array($uid, $managed_uids) && $uid != $_SESSION['uid']) {
                 header('Location: app.php?page=edittask&taskid=' . $VARS['taskid'] . '&msg=user_not_managed');
@@ -160,7 +178,11 @@ switch ($VARS['action']) {
             die('Missing taskid.');
         }
 
-        $managed_uids = getManagedUIDs($_SESSION['uid']);
+        $managed_users = (new User($_SESSION['uid']))->getManagedUsers();
+        $managed_uids = [];
+        foreach ($managed_users as $m) {
+            $managed_uids[] = $m->getUID();
+        }
         // There needs to be at least one entry otherwise the SQL query craps itself
         if (count($managed_uids) < 1) {
             $managed_uids = [-1];

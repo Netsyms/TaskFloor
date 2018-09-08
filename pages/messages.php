@@ -10,10 +10,10 @@ redirectifnotloggedin();
 <form action="action.php" method="POST" class="form-horizontal mb-1" id="msgsendform">
     <input type="hidden" name="action" value="sendmsg" />
     <div class="input-group" id="msgsenddiv"> <!--col-12 col-md-5 col-lg-4-->
-        <input type="text" id="msgsendbox" name="msg" class="form-control" placeholder="<?php lang("send message") ?>" autocomplete="off" />
-        <input type="text" id="msgtobox" name="to" class="form-control" placeholder="<?php lang("to") ?>" autocomplete="off" />
+        <input type="text" id="msgsendbox" name="msg" class="form-control" placeholder="<?php $Strings->get("send message") ?>" autocomplete="off" />
+        <input type="text" id="msgtobox" name="to" class="form-control" placeholder="<?php $Strings->get("to") ?>" autocomplete="off" />
         <div class="input-group-append">
-            <button id="msgsendbtn" class="btn btn-primary btn-sm" type="submit"><i class="fas fa-paper-plane"></i> <?php lang("send") ?></button>
+            <button id="msgsendbtn" class="btn btn-primary btn-sm" type="submit"><i class="fas fa-paper-plane"></i> <?php $Strings->get("send") ?></button>
         </div>
     </div>
 </form>

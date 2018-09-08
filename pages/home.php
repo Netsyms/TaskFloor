@@ -12,7 +12,7 @@ redirectifnotloggedin();
         <div class="card">
             <div class="card-body p-1">
                 <h4 class="card-title p-3">
-                    <i class="fas fa-th-list"></i> <?php lang("my tasks") ?>
+                    <i class="fas fa-th-list"></i> <?php $Strings->get("my tasks") ?>
                 </h4>
                 <?php
                 include __DIR__ . '/mytasks.php';
@@ -24,7 +24,7 @@ redirectifnotloggedin();
         <div class="card">
             <div class="card-body p-1">
                 <h4 class="card-title p-3">
-                    <i class="fas fa-comments"></i> <?php lang("messages") ?>
+                    <i class="fas fa-comments"></i> <?php $Strings->get("messages") ?>
                 </h4>
                 <?php
                 include __DIR__ . '/messages.php';

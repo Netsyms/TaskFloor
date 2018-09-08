@@ -12,33 +12,57 @@
  * user passwords.
  */
 require __DIR__ . '/required.php';
-require_once __DIR__ . '/lib/login.php';
-require_once __DIR__ . '/lib/userinfo.php';
 header("Content-Type: application/json");
+
+/**
+ * Checks if the given AccountHub API key is valid by attempting to
+ * access the API with it.
+ * @param String $key The API key to check
+ * @return boolean TRUE if the key is valid, FALSE if invalid or something went wrong
+ */
+function checkAPIKey($key) {
+    try {
+        $client = new GuzzleHttp\Client();
+
+        $response = $client
+                ->request('POST', PORTAL_API, [
+            'form_params' => [
+                'key' => $key,
+                'action' => "ping"
+            ]
+        ]);
+
+        if ($response->getStatusCode() === 200) {
+            return true;
+        }
+        return false;
+    } catch (Exception $e) {
+        return false;
+    }
+}
 
 $username = $VARS['username'];
 $password = $VARS['password'];
-if (user_exists($username) !== true || (authenticate_user($username, $password, $errmsg) !== true && checkAPIKey($password) !== true)) {
+$user = User::byUsername($username);
+if ($user->exists() !== true || ((Login::auth($username, $password) !== Login::LOGIN_OK) && !checkAPIKey($password))) {
     header("HTTP/1.1 403 Unauthorized");
     die("\"403 Unauthorized\"");
 }
 
-if (!account_has_permission($username, "TASKFLOOR")) {
+if (!$user->hasPermission("TASKFLOOR")) {
     header("HTTP/1.1 403 Unauthorized");
     die("\"403 Unauthorized\"");
 }
-
-$userinfo = getUserByUsername($username);
 
 // query max results
 $max = 20;
-if (preg_match("/^[0-9]+$/", $VARS['max']) === 1 && $VARS['max'] <= 1000) {
+if (isset($VARS['max']) && preg_match("/^[0-9]+$/", $VARS['max']) === 1 && $VARS['max'] <= 1000) {
     $max = (int) $VARS['max'];
 }
 
 switch ($VARS['action']) {
     case "gettasks":
-        $tasks = $database->query("SELECT * FROM assigned_tasks LEFT JOIN tasks ON assigned_tasks.taskid = tasks.taskid WHERE assigned_tasks.userid = '" . $userinfo['uid'] . "' AND assigned_tasks.statusid IN (0,1,3,4) AND taskassignedon <= NOW() AND tasks.deleted = 0 ORDER BY 0 - taskdueby DESC LIMIT $max")->fetchAll();
+        $tasks = $database->query("SELECT * FROM assigned_tasks LEFT JOIN tasks ON assigned_tasks.taskid = tasks.taskid WHERE assigned_tasks.userid = '" . $user->getUID() . "' AND assigned_tasks.statusid IN (0,1,3,4) AND taskassignedon <= NOW() AND tasks.deleted = 0 ORDER BY 0 - taskdueby DESC LIMIT $max")->fetchAll();
         $out = ["status" => "OK", "maxresults" => $max, "tasks" => []];
         foreach ($tasks as $task) {
             $icon = "ellipsis-h";
@@ -78,9 +102,9 @@ switch ($VARS['action']) {
                 ], [
             "AND" => [
                 "OR" => [
-                    "to" => $userinfo['uid'],
+                    "to" => $user->getUID(),
                     "to #null" => null,
-                    "from" => $userinfo['uid']
+                    "from" => $user->getUID()
                 ],
                 "deleted" => 0
             ],
@@ -95,14 +119,14 @@ switch ($VARS['action']) {
         foreach ($messages as $msg) {
             $to = null;
             if (!isset($usercache[$msg['from']])) {
-                $usercache[$msg['from']] = getUserByID($msg['from']);
+                $usercache[$msg['from']] = new User($msg['from']);
             }
             if (is_null($msg['to'])) {
                 $to['name'] = lang("all users", false);
                 $to['username'] = lang("all users", false);
             } else {
                 if (!isset($usercache[$msg['to']])) {
-                    $usercache[$msg['to']] = getUserByID($msg['to']);
+                    $usercache[$msg['to']] = new User($msg['to']);
                 }
                 $to = $usercache[$msg['to']];
             }
@@ -110,40 +134,40 @@ switch ($VARS['action']) {
             $out['messages'][$msg['id']] = [
                 "text" => $msg['text'],
                 "from" => [
-                    "username" => $usercache[$msg['from']]['username'],
-                    "name" => $usercache[$msg['from']]['name']
+                    "username" => $usercache[$msg['from']]->getUsername(),
+                    "name" => $usercache[$msg['from']]->getName()
                 ],
                 "to" => [
-                    "username" => $to['username'],
-                    "name" => $to['name']
+                    "username" => $to->getUsername(),
+                    "name" => $to->getName()
                 ],
                 "sent" => date("F j, Y, g:i a", strtotime($msg['date']))
             ];
         }
         exit(json_encode($out));
     case "updatetask":
-        if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]])) {
+        if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID()]])) {
             die('{"status": "ERROR", "msg": "You are not assigned to this task!"}');
         }
 
         switch ($VARS['status']) {
             case "start":
-                $database->update('assigned_tasks', ['starttime' => date("Y-m-d H:i:s"), 'statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                $database->update('assigned_tasks', ['starttime' => date("Y-m-d H:i:s"), 'statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID()]]);
                 break;
             case "resume":
-                if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid'], 'starttime[!]' => null]])) {
+                if (!$database->has('assigned_tasks', ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID(), 'starttime[!]' => null]])) {
                     die('{"status": "ERROR", "msg": "Cannot resume non-started task."}');
                 }
-                $database->update('assigned_tasks', ['statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                $database->update('assigned_tasks', ['statusid' => 1], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID()]]);
                 break;
             case "finish":
-                $database->update('assigned_tasks', ['endtime' => date("Y-m-d H:i:s"), 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                $database->update('assigned_tasks', ['endtime' => date("Y-m-d H:i:s"), 'statusid' => 2], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID()]]);
                 break;
             case "pause":
-                $database->update('assigned_tasks', ['statusid' => 3], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                $database->update('assigned_tasks', ['statusid' => 3], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID()]]);
                 break;
             case "problem":
-                $database->update('assigned_tasks', ['statusid' => 4], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $userinfo['uid']]]);
+                $database->update('assigned_tasks', ['statusid' => 4], ["AND" => ['taskid' => $VARS['taskid'], 'userid' => $user->getUID()]]);
                 break;
             default:
                 die('{"status": "ERROR", "msg": "Invalid status requested."}');
@@ -152,14 +176,14 @@ switch ($VARS['action']) {
     case "sendmsg":
         $msg = strip_tags($VARS['msg']);
         if (user_exists($VARS['to'])) {
-            $to = getUserByUsername($VARS['to'])['uid'];
+            $to = User::byUsername($VARS['to'])->getUID();
         } else {
             die('{"status": "ERROR", "msg": "Invalid user."}');
         }
         if (is_empty($msg)) {
             die('{"status": "ERROR", "msg": "Missing message."}');
         }
-        $database->insert('messages', ['messagetext' => $msg, 'messagedate' => date("Y-m-d H:i:s"), 'from' => $userinfo['uid'], 'to' => $to]);
+        $database->insert('messages', ['messagetext' => $msg, 'messagedate' => date("Y-m-d H:i:s"), 'from' => $user->getUID(), 'to' => $to]);
         die('{"status": "OK"}');
     default:
         header("HTTP/1.1 400 Bad Request");

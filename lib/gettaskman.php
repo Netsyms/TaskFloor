@@ -7,9 +7,12 @@ require_once __DIR__ . "/../required.php";
 
 redirectifnotloggedin();
 
-require_once __DIR__ . "/userinfo.php";
+$managed_users = (new User($_SESSION['uid']))->getManagedUsers();
 
-$managed_uids = getManagedUIDs($_SESSION['uid']);
+$managed_uids = [];
+foreach ($managed_users as $u) {
+    $managed_uids[] = $u->getUID();
+}
 
 // There needs to be at least one entry otherwise the SQL query craps itself
 if (count($managed_uids) < 1) {
@@ -83,9 +86,9 @@ if (count($tasks) > 0) {
                     if (!is_null($task['userid'])) {
                         echo "<span class='float-right text-muted small ml-1 mt-1'>";
                         if (!isset($usercache[$task['userid']])) {
-                            $usercache[$task['userid']] = getUserByID($task['userid']);
+                            $usercache[$task['userid']] = (new User($task['userid']));
                         }
-                        echo "<i class='fas fa-user fa-fw'></i> " . $usercache[$task['userid']]['name'];
+                        echo "<i class='fas fa-user fa-fw'></i> " . $usercache[$task['userid']]->getName();
                         echo "</span>";
                     }
                     ?>
@@ -96,16 +99,16 @@ if (count($tasks) > 0) {
                 <div class='row'>
                     <div class='col-12 col-sm-8 list-group'>
                         <div class="list-group-item">
-                            <i class='fas fa-hourglass-start fa-fw'></i> <?php lang2("assigned on", ["date" => ($task['assigned'] > 0 ? date("M j, g:i a", strtotime($task['assigned'])) : lang("no assigned date", false))]) ?>
+                            <i class='fas fa-hourglass-start fa-fw'></i> <?php $Strings->build("assigned on", ["date" => ($task['assigned'] > 0 ? date("M j, g:i a", strtotime($task['assigned'])) : $Strings->get("no assigned date", false))]) ?>
                         </div>
                         <div class="list-group-item">
-                            <i class='fas fa-hourglass-end fa-fw'></i> <?php lang2("due by", ["date" => ($task['due'] > 0 ? date("M j, g:i a", strtotime($task['due'])) : lang("no due date", false))]) ?>
+                            <i class='fas fa-hourglass-end fa-fw'></i> <?php $Strings->build("due by", ["date" => ($task['due'] > 0 ? date("M j, g:i a", strtotime($task['due'])) : $Strings->get("no due date", false))]) ?>
                         </div>
                         <?php
                         if ($task['statusid'] > 0) {
                             ?>
                             <div class="list-group-item">
-                                <i class='fas fa-play fa-fw'></i> <?php lang2("started on", ["date" => date("M j, g:i a", strtotime($task['starttime']))]) ?>
+                                <i class='fas fa-play fa-fw'></i> <?php $Strings->build("started on", ["date" => date("M j, g:i a", strtotime($task['starttime']))]) ?>
                             </div>
                             <?php
                         }
@@ -114,7 +117,7 @@ if (count($tasks) > 0) {
                         if ($task['statusid'] == 2) {
                             ?>
                             <div class="list-group-item">
-                                <i class='fas fa-stop fa-fw'></i> <?php lang2("finished on", ["date" => date("M j, g:i a", strtotime($task['endtime']))]) ?>
+                                <i class='fas fa-stop fa-fw'></i> <?php $Strings->build("finished on", ["date" => date("M j, g:i a", strtotime($task['endtime']))]) ?>
                             </div>
                             <?php
                         }
@@ -125,7 +128,7 @@ if (count($tasks) > 0) {
                             <form action='app.php?page=edittask' method='GET' class='bin-btn'>
                                 <input type='hidden' name='page' value='edittask' />
                                 <input type='hidden' name='taskid' value='<?php echo $task['taskid'] ?>' />
-                                <button type='submit' class='btn btn-sm btn-primary' data-toggle="tooltip" data-placement="auto left" title="<?php lang("edit task") ?>"><i class='fas fa-edit fa-fw'></i> <?php lang("edit"); ?></button>
+                                <button type='submit' class='btn btn-sm btn-primary' data-toggle="tooltip" data-placement="auto left" title="<?php $Strings->get("edit task") ?>"><i class='fas fa-edit fa-fw'></i> <?php $Strings->get("edit"); ?></button>
                             </form>
                             <form
                                 action='action.php'
@@ -141,7 +144,7 @@ if (count($tasks) > 0) {
                                     <?php
                                 }
                                 ?>
-                                <button type='submit' id='deltaskbtn<?php echo $task['taskid'] ?>' class='btn btn-sm btn-danger' data-toggle="tooltip" data-placement="auto left" title="<?php lang("delete task") ?>"><i class='fas fa-trash fa-fw'></i> <?php lang("delete"); ?></button>
+                                <button type='submit' id='deltaskbtn<?php echo $task['taskid'] ?>' class='btn btn-sm btn-danger' data-toggle="tooltip" data-placement="auto left" title="<?php $Strings->get("delete task") ?>"><i class='fas fa-trash fa-fw'></i> <?php $Strings->get("delete"); ?></button>
                             </form>
                         </div>
                     </div>
@@ -157,7 +160,7 @@ if (count($tasks) > 0) {
     if (isset($_GET['alone']) || (isset($pageid) && $pageid != "home")) {
         echo "<div class=\"col-12 col-md-6\">";
     }
-    echo "<div class='alert alert-info'><i class='fas fa-info-circle'></i> " . lang("no tasks", false) . "</div>";
+    echo "<div class='alert alert-info'><i class='fas fa-info-circle'></i> " . $Strings->get("no tasks", false) . "</div>";
     if (isset($_GET['alone']) || (isset($pageid) && $pageid != "home")) {
         echo "</div>";
     }
