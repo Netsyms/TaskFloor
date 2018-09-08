@@ -166,8 +166,10 @@ switch ($VARS['action']) {
             }
             if ($database->has('assigned_tasks', ['taskid' => $VARS['taskid']])) {
                 $database->update('assigned_tasks', ['userid' => $uid, 'starttime' => null, 'endtime' => null, 'statusid' => 0], ['taskid' => $VARS['taskid']]);
+                Notifications::add(new User($uid), SITE_TITLE . ": " . $Strings->get("Task assigned", false), "You have been assigned task " . strip_tags($VARS['tasktitle']) . ".");
             } else {
                 $database->insert('assigned_tasks', ['taskid' => $VARS['taskid'], 'userid' => $uid, 'starttime' => null, 'endtime' => null, 'statusid' => 0]);
+                Notifications::add(new User($uid), SITE_TITLE . ": " . $Strings->get("Task assigned"), "You have been assigned task " . strip_tags($VARS['tasktitle']) . ".");
             }
         } else if (is_empty($VARS['assignedto'])) {
             $database->delete('assigned_tasks', ['taskid' => $VARS['taskid']]);
