@@ -152,7 +152,7 @@ switch ($VARS['action']) {
         } else if ($VARS['taskdueby'] == "") {
             $database->update('tasks', ['taskdueby' => null], ['taskid' => $VARS['taskid']]);
         }
-        if (!is_empty($VARS['assignedto']) && user_exists($VARS['assignedto'])) {
+        if (!is_empty($VARS['assignedto']) && User::byUsername($VARS['assignedto'])->exists()) {
             $uid = User::byUsername($VARS['assignedto'])->getUID();
             $managed_users = (new User($_SESSION['uid']))->getManagedUsers();
             $managed_uids = [];
